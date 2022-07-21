@@ -30,6 +30,12 @@
   }
 }
 
+.header-section-library {
+  @media screen and (max-width: 767px) {
+    padding-bottom: 62px;
+  }
+}
+
 .header__wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -42,4 +48,8 @@
   @media screen and (min-width: 768px) {
     margin-bottom: 40px;
   }
+}
+
+.header__wrapper-libraty {
+  margin-bottom: 66px;
 }
