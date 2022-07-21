@@ -12,20 +12,34 @@
     background-image: url(../images/header-bgc-tab-1x-min.jpg);
     background-size: 100% 100%;
   }
+  @media screen and (min-width: 769px) {
+    background-image: url(../images/desk-header-1x-min.jpg);
+    background-size: 100% 100%;
+  }
 
   @media screen and (max-width: 767px) {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 90px;
   }
+
+  @media screen and (min-width: 768px) {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 80px;
+  }
 }
 
 .header__wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  align-items: center;
 
-  @media screen and (max-width: 467px) {
+  @media screen and (max-width: 767px) {
     margin-bottom: 60px;
+  }
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 40px;
   }
 }
