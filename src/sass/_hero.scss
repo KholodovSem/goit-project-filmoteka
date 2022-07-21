@@ -1,0 +1,19 @@
+.gallery__section {
+  @include untilTablet {
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+
+  @include tablet {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  &__list {
+    @include tablet {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+  }
+}

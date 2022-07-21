@@ -1,4 +1,5 @@
 @import './common';
+@import './global-styles/mixins';
 @import './global-styles/__body';
 @import './global-styles/_variables';
 @import './header/_header';
@@ -7,3 +8,4 @@
 @import './header/__logo';
 @import './header/__header-btn';
 @import './footer';
+@import './hero';
