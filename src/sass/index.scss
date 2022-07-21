@@ -1,5 +1,8 @@
 @import './common';
-@import './global-styles/__body';
+@import './gallery-card';
+@import './global-styles/_body';
+@import './global-styles/_container';
+@import './global-styles/_visually-hidden';
 @import './global-styles/_variables';
 @import './header/_header';
 @import './header/_navigation';
