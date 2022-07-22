@@ -1,5 +1,18 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: var(--primary-text-header-color);
+  font-style: normal;
+  color: var(--movie-title-color);
+  font-weight: 500;
+  height: 100%;
+}
+
+main {
+  position: relative;
 }
 
 h1,
@@ -24,6 +37,7 @@ ol {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 img {

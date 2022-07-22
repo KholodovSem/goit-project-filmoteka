@@ -1,5 +1,6 @@
 //Импорты
 import { FetchFilms } from './js/FetchFilmsClass';
+import './js/renderMarkup';
 
 //Ссылки на объекты DOM
 const refs = {
