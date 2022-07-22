@@ -1,8 +1,55 @@
 .header-section {
+  padding-top: 40px;
+
+  background-repeat: no-repeat;
+
+  @media screen and (max-width: 320px) {
+    background-image: url(../images/header-background-mob-1x-min.jpg);
+    background-size: 100% 100%;
+  }
+
+  @media screen and (min-width: 321px) and (max-width: 768px) {
+    background-image: url(../images/header-bgc-tab-1x-min.jpg);
+    background-size: 100% 100%;
+  }
+  @media screen and (min-width: 769px) {
+    background-image: url(../images/desk-header-1x-min.jpg);
+    background-size: 100% 100%;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 90px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 80px;
+  }
+}
+
+.header-section-library {
+  @media screen and (max-width: 767px) {
+    padding-bottom: 62px;
+  }
+}
+
+.header__wrapper {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 
-  @media screen and (min-width: 320px) {
-    background-image: url(../images/header-background-mob-1x-min.jpg);
+  @media screen and (max-width: 767px) {
+    margin-bottom: 60px;
   }
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 40px;
+  }
+}
+
+.header__wrapper-libraty {
+  margin-bottom: 66px;
 }
