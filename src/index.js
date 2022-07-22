@@ -1,11 +1,21 @@
-//Импорты
-import { FetchFilms } from './js/FetchFilmsClass';
-import './js/renderMarkup';
+import { FetchFilms } from "./js/FetchFilmsClass";
+import { refs } from "./js/refs";
+import { renderMarkup } from "./js/renderMarkup";
+const a = 1;
 
-//Ссылки на объекты DOM
-const refs = {
-  //   headerLinkHome: document.querySelector('[data-link-home]'),
-  //   headerLinkLibrary: document.querySelector('[data-link-library]'),
-};
 
 const fetchFilms = new FetchFilms();
+fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results))
+
+
+
+
+
+
+       
+
+
+
+    
+
+

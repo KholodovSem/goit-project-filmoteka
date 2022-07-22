@@ -14,7 +14,8 @@ export class FetchFilms{
     async fetchFilmsTrending(){
         try {
         const response = await axios.get(`${this.#BASE_URL}trending/all/day?`, {params:{
-            api_key:this.#API_KEY,}
+            api_key:this.#API_KEY,
+            page:this.page,}
         })
         console.log("function - fetchFilmsTrending:")
         console.log(response);
@@ -59,6 +60,8 @@ export class FetchFilms{
             console.error(error);
         } 
     }
+
+
     
     incrementPage() {
         this.page += 1;
