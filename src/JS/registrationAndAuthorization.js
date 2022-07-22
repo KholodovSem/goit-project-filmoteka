@@ -1,29 +1,76 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+// Импорты
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import Notiflix from 'notiflix';
 
-import iziModal from 'izimodal';
-import '../../node_modules/izimodal/css/iziModal.min.css';
+//Переменные
+const firebaseConfig = {
+  apiKey: 'AIzaSyCO-ILMV2EekKKemkyPKq5E9bB1w0Pe7GE',
+  authDomain: 'filmoteka-f350f.firebaseapp.com',
+  databaseURL:
+    'https://filmoteka-f350f-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'filmoteka-f350f',
+  storageBucket: 'filmoteka-f350f.appspot.com',
+  messagingSenderId: '1080318171638',
+  appId: '1:1080318171638:web:90d4d887cd5c9c76f68fd7',
+};
 
-console.log(iziModal);
+const app = initializeApp(firebaseConfig);
 
-const userReg = e => {
-  e.preventDefault();
-  const userEmail = e.target.elements[0].value;
-  const userPassword = e.target.elements[1].value;
+//Уведомления Notiflix
+//*Регистрация
+export const succesRegistration = function () {
+  Notiflix.Notify.success(
+    'Congratulations &#127881 Registration completed successfully!'
+  );
+  Notiflix.Notify.success('Now please login &#128588');
+};
+const failedRegistration = function () {
+  Notiflix.Notify.failure('Ooops &#128533 Something went wrong');
+};
+
+//*Авторизация
+const succesAuthorization = function () {
+  Notiflix.Notify.success('Welcome back! &#128527');
+};
+const failedAuthorization = function () {
+  Notiflix.Notify.failure('Who are you?  Lets goodbye &#128075');
+};
+
+//Функция регистрации
+export function userRegistration(event) {
+  event.preventDefault();
+  const email = event.target.elements[0].value;
+  const password = event.target.elements[1].value;
 
   const auth = getAuth();
-  signInWithEmailAndPassword(auth, userEmail, userPassword)
+  createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
-      console.log('Welcome');
+      succesRegistration();
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
+      failedRegistration();
     });
-};
+}
+
+//Функция авторизации
+export function userAuthorization(event) {
+  event.preventDefault();
+  const email = event.target.elements[0].value;
+  const password = event.target.elements[1].value;
+
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      const user = userCredential.user;
+      succesAuthorization();
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      failedAuthorization();
+    });
+}

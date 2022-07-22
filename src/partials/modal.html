@@ -26,7 +26,12 @@
           />
           <p class="registration-modal-text">Your email:</p>
         </div>
-        <input type="email" id="email" class="registration-modal-input" />
+        <input
+          type="email"
+          id="email"
+          class="registration-modal-input"
+          placeholder="mivina-team@goit.com"
+        />
       </label>
       <label for="password" class="registration-modal-label">
         <div class="icon-wrapper">
@@ -39,10 +44,18 @@
           />
           <p class="registration-modal-text">Your password:</p>
         </div>
-        <input type="password" id="password" class="registration-modal-input" />
+        <input
+          type="password"
+          id="password"
+          class="registration-modal-input"
+          minlength="6"
+          placeholder="Password"
+        />
       </label>
       <button class="tab-change-btn cancel">CANCEL</button>
-      <button class="tab-change-btn start">LOGIN</button>
+      <button type="submit" class="tab-change-btn start" data-login-button>
+        LOGIN
+      </button>
     </form>
   </div>
 </div>
