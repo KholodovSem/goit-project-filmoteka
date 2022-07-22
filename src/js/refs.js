@@ -17,4 +17,6 @@ export const refs = {
       signInBoolean: false,
     },
   },
+  form: document.querySelector('.form'),
+  input: document.querySelector('input'),
 };

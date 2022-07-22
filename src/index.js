@@ -30,6 +30,7 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //Запрос и рендеринг популярных фильмов
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 
+
 //Кнопка скролла вверх
 window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
@@ -40,6 +41,7 @@ const pagination1 = new Pagination('pagination1', {
   itemsPerPage: 10,
   visiblePages: 5,
 });
+
 
 //*Модальное окно регистрации
 // Открытие модального окна
@@ -71,3 +73,30 @@ signInTab.addEventListener('click', e => {
   signInTabBoolean = true;
   newAccTabBoolean = false;
 });
+
+// What is this? 
+refs.form.addEventListener('submit', searchImage);
+
+// function clearGallery() {
+//   refs.gallery.innerHTML = '';
+// }
+
+function searchImage(event) {
+  event.preventDefault();
+  
+  const query = refs.input.value;
+  console.log(query);
+  if (query) {
+    // searchBtn.toggleIcon().disable();
+
+    fetchFilms.fetchFilmsSearch(query).then(results => renderMarkup(results));
+    console.log(query);
+    // searchBtn.toggleIcon().enable();
+  }
+}
+
+
+
+
+
+
