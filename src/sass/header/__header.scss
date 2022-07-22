@@ -31,8 +31,21 @@
 }
 
 .header-section-library {
-  @media screen and (max-width: 767px) {
-    padding-bottom: 62px;
+  padding-bottom: 62px;
+
+  @media screen and (max-width: 320px) {
+    background-image: url(../images/header-mob-watched-queue-1x-min.jpg);
+    background-size: 100% 100%;
+  }
+
+  @media screen and (min-width: 321px) and (max-width: 768px) {
+    background-image: url(../images/header-tab-watched-queue-1x-min.jpg);
+    background-size: 100% 100%;
+  }
+
+  @media screen and (min-width: 769px) {
+    background-image: url(../images/header-desk-watched-queue-1x-min.jpg);
+    background-size: 100% 100%;
   }
 }
 
@@ -51,5 +64,7 @@
 }
 
 .header__wrapper-libraty {
-  margin-bottom: 66px;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 40px;
+  }
 }

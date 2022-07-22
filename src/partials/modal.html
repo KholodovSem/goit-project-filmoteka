@@ -1,0 +1,44 @@
+<div class="registration-modal">
+  <div class="modal-content">
+    <button class="tab-change-btn sign-in active">SIGN IN</button>
+    <button class="tab-change-btn login non-active">NEW ACCOUNT</button>
+    <button class="modal-btn">
+      <img
+        src="./images/SVG/close-icon.svg"
+        alt="Close icon"
+        width="20px"
+        height="20px"
+      />
+    </button>
+    <form name="Registration" class="registration-form">
+      <label for="email" class="registration-modal-label">
+        <div class="icon-wrapper">
+          <img
+            src="./images/SVG/email-icon.svg"
+            alt="Email icon"
+            width="25px"
+            height="20px"
+            class="email-icon"
+          />
+          <p class="registration-modal-text">Your email:</p>
+        </div>
+        <input type="email" id="email" class="registration-modal-input" />
+      </label>
+      <label for="password" class="registration-modal-label">
+        <div class="icon-wrapper">
+          <img
+            src="./images/SVG/lock-icon.svg"
+            alt="Icon password"
+            width="25px"
+            height="20px"
+            class="lock-icon"
+          />
+          <p class="registration-modal-text">Your password:</p>
+        </div>
+        <input type="password" id="password" class="registration-modal-input" />
+      </label>
+      <button class="tab-change-btn cancel">CANCEL</button>
+      <button class="tab-change-btn start">LOGIN</button>
+    </form>
+  </div>
+</div>

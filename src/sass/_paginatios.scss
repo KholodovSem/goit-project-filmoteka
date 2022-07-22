@@ -1,0 +1,36 @@
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+  background-color: $orange-color !important;
+}
+
+.tui-pagination .tui-page-btn {
+  @include untilTablet {
+    width: 25px !important;
+    height: 25px !important;
+  }
+  width: 40px !important;
+  height: 40px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  font-family: inherit !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  line-height: 1.33 !important;
+  display: inline-flex !important;
+  position: relative !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.tui-pagination .tui-next-is-ellip {
+  border: none !important;
+}
+
+.tui-pagination .tui-first,
+.tui-pagination .tui-last,
+.tui-pagination .tui-next,
+.tui-pagination .tui-next-is-ellip,
+.tui-pagination .tui-prev,
+.tui-pagination .tui-prev-is-ellip {
+  font-size: 14px;
+}
