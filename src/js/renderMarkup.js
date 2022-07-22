@@ -1,16 +1,18 @@
 import { refs } from './refs';
 import { genres } from './genresObject';
+import { FetchFilms } from './FetchFilmsClass';
 const { MovieTrendContainer } = refs;
-
 
 export function renderMarkup(results, watched, queue) {
   refs.movieContainer.innerHTML = '';
-  const markup = results.data.results.map(film => 
+  const markup = results.data.results
+    .map(
+      film =>
         `
 <li class="gallery-items films__gallery-item" data-id=${film.id}>
 <a href="#!" class="list-card__link">
 <!-- постер -->
-${missingImage (film)}
+${missingImage(film)}
   
 <!-- обгортка інформації під постером -->
 <div class="moviе-stats">
@@ -20,59 +22,68 @@ ${missingImage (film)}
 <!-- список жанрів -->
 <p class="moviе-genre">${genreGenerate(film)}</p>
 <!-- дата виходу та рейтинг -->
-<p class="moviе-year">|  ${new Date(releaseDateGenerate(film)).getFullYear()}</p>
+<p class="moviе-year">|  ${new Date(
+          releaseDateGenerate(film)
+        ).getFullYear()}</p>
 <!-- рейтинг -->
 <p class="moviе-vote">${film.vote_average.toFixed(1)}</p>
 </div>
     </div>
 </a>
 </li>`
-).join("")
+    )
+    .join('');
 
-    refs.movieContainer.insertAdjacentHTML('beforeend', markup);
+  refs.movieContainer.insertAdjacentHTML('beforeend', markup);
 }
-  
 
 // Функция генерации жанра по его длине
-  function genreGenerate(film){
+function genreGenerate(film) {
+  if (film.genre_ids.length === 1) {
+    return genres[film.genre_ids[0]];
+  }
+  if (film.genre_ids.length === 2) {
+    return `${genres[film.genre_ids[0]]}, ${genres[film.genre_ids[1]]}`;
+  }
 
-    if(film.genre_ids.length === 1){
-        return genres[film.genre_ids[0]];
-    }
-    if(film.genre_ids.length === 2){
-        return `${genres[film.genre_ids[0]]}, ${genres[film.genre_ids[1]]}`;
-    }
-
-    if(film.genre_ids.length > 2){
-        return `${genres[film.genre_ids[0]]}, ${genres[film.genre_ids[1]]}, Other`
-    }
+  if (film.genre_ids.length > 2) {
+    return `${genres[film.genre_ids[0]]}, ${genres[film.genre_ids[1]]}, Other`;
+  }
 }
 
-// Функция проверки свойства имени 
- function nameTitleGenerate(film){
-
-    if(film.title){
-        return film.title
-    }
-    return film.name
+// Функция проверки свойства имени
+function nameTitleGenerate(film) {
+  if (film.title) {
+    return film.title;
+  }
+  return film.name;
 }
 
-// Функция проверки даты выхода фильма 
-function releaseDateGenerate(film){
-    if( film.release_date){ 
-        return film.release_date;
-    }   
-    return  film.first_air_date;
+// Функция проверки даты выхода фильма
+function releaseDateGenerate(film) {
+  if (film.release_date) {
+    return film.release_date;
+  }
+  return film.first_air_date;
 }
 
- function missingImage (film){
-
-
-    if(film.poster_path){
-       return   `<img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2${film.poster_path}"   alt="${film.title}"
+function missingImage(film) {
+  if (film.poster_path) {
+    return `<img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2${film.poster_path}"   alt="${film.title}"
         class="moviе-item__img" 
          loading="lazy" 
-  />`
-    }
-     return `<img src="https://sd.keepcalms.com/i-w600/sorry-poster-is-missing.jpg" alt="${film.title}" class="moviе-item__img" loading="lazy">`;
+  />`;
+  }
+  return `<img src="https://sd.keepcalms.com/i-w600/sorry-poster-is-missing.jpg" alt="${film.title}" class="moviе-item__img" loading="lazy">`;
+}
+
+// Функция поиска фильма по имени
+const fetchFilms = new FetchFilms();
+refs.form.addEventListener('submit', searchImage);
+function searchImage(event) {
+  event.preventDefault();
+  const query = refs.input.value;
+  if (query) {
+    fetchFilms.fetchFilmsSearch(query).then(results => renderMarkup(results));
+  }
 }
