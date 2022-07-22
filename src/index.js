@@ -42,7 +42,6 @@ const pagination1 = new Pagination('pagination1', {
   visiblePages: 5,
 });
 
-
 //*Модальное окно регистрации
 // Открытие модального окна
 userAccBtn.addEventListener('click', event => openRegModal(event, regModal));
@@ -94,9 +93,3 @@ function searchImage(event) {
     // searchBtn.toggleIcon().enable();
   }
 }
-
-
-
-
-
-
