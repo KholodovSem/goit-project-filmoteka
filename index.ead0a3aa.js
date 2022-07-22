@@ -1,0 +1,2 @@
+!function(){var e=document.querySelector(".registration-btn"),t=document.querySelector(".registration-modal"),n=document.querySelector(".modal-btn"),c=document.querySelector(".tab-change-btn.cancel");function i(e){e.preventDefault(),t.classList.remove("modal-isVisible")}e.addEventListener("click",(function(e){e.preventDefault(),t.classList.add("modal-isVisible")})),n.addEventListener("click",i),c.addEventListener("click",i)}();
+//# sourceMappingURL=index.ead0a3aa.js.map
