@@ -46,3 +46,11 @@
 .header__btn:not(:last-child) {
   margin-right: 20px;
 }
+
+//---Registration
+.registration-btn {
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+}

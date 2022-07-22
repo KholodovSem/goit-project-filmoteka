@@ -4,6 +4,11 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 
+import iziModal from 'izimodal';
+import '../../node_modules/izimodal/css/iziModal.min.css';
+
+console.log(iziModal);
+
 const userReg = e => {
   e.preventDefault();
   const userEmail = e.target.elements[0].value;

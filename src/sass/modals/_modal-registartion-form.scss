@@ -1,0 +1,152 @@
+.registration-modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  transform: translateX(1800px);
+}
+
+.modal-isVisible {
+  transform: translateX(0px);
+  transition: transform 500ms linear 0ms;
+}
+
+.modal-content {
+  position: relative;
+
+  width: 80%;
+  max-width: 500px;
+
+  margin: 15% auto;
+  padding: 70px 40px 70px 40px;
+
+  border: 1px solid #888;
+  background-color: #fefefe;
+}
+
+.registration-form {
+  margin-bottom: 40px;
+}
+
+//BTN
+.modal-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+
+  padding: 0;
+
+  border: none;
+
+  background-color: crimson;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition: transform 600ms linear 0ms, background-color 500ms linear 0ms;
+}
+
+.modal-btn:hover,
+.modal-btn:focus {
+  transform: rotate(360deg);
+}
+
+.tab-change-btn {
+  position: absolute;
+
+  width: 50%;
+  height: 50px;
+
+  background-color: gainsboro;
+  border: none;
+
+  cursor: pointer;
+}
+
+.non-active {
+  transition: box-shadow 300ms linear 0ms;
+}
+
+.non-active:hover,
+.non-active:focus {
+  box-shadow: inset 0px 0px 4px black;
+}
+
+.sign-in {
+  top: 0;
+  left: 0;
+}
+
+.login {
+  top: 0;
+  right: 0;
+}
+
+.tab-change-btn.active {
+  background-color: $white-color;
+}
+
+.cancel {
+  bottom: 0;
+  left: 0;
+
+  background-color: #aaa9a9;
+}
+
+.start {
+  bottom: 0;
+  right: 0;
+
+  background-color: #28ca97;
+}
+
+.start,
+.cancel {
+  transition: box-shadow 300ms linear 0ms;
+}
+
+.cancel:hover,
+.cancel:focus,
+.start:hover,
+.start:focus {
+  box-shadow: inset 0px 0px 4px black;
+}
+
+//Inputs & Text
+
+.registration-modal-text {
+}
+
+.registration-modal-input {
+  width: 100%;
+  height: 30px;
+}
+
+// Icons
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.icon-wrapper:last-of-type {
+  margin-top: 30px;
+}
+
+.email-icon,
+.lock-icon {
+  margin-right: 7px;
+}

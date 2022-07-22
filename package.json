@@ -20,6 +20,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "firebase": "^9.9.0",
+    "izimodal": "^1.6.1",
+    "jquery": "^3.6.0",
     "modern-normalize": "^1.1.0"
   },
   "devDependencies": {
