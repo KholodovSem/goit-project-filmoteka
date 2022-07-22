@@ -21,9 +21,6 @@ const pagination1 = new Pagination('pagination1', {
   visiblePages: 5,
 });
 
-const pagination2 = new Pagination(document.getElementById('pagination2'), {
-  totalItems: 500,
-  itemsPerPage: 10,
-  visiblePages: 5,
-  centerAlign: true,
-});
+
+
+
