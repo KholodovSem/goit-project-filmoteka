@@ -1,16 +1,14 @@
 //Импорты
 import { FetchFilms } from './js/FetchFilmsClass';
-import { renderMarkup } from "./js/renderMarkup";
+import { renderMarkup } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
-
-
 const fetchFilms = new FetchFilms();
 
-fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results))
+fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 
 // const backToTopBtn = document.querySelector('.back-to-top-btn');
 
