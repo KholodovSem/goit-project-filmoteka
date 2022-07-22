@@ -10,14 +10,7 @@ export function renderMarkup(results, watched, queue) {
 <li class="gallery-items films__gallery-item" data-id=${film.id}>
 <a href="#!" class="list-card__link">
 <!-- постер -->
-  ${
-    film.poster_path
-      ? ` <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2${film.poster_path}"   alt="${film.title}"
-         class="moviе-item__img" 
-          loading="lazy" s
-   />`
-      : `<img src="https://sd.keepcalms.com/i-w600/sorry-poster-is-missing.jpg" alt="${film.title}" class="moviе-item__img" loading="lazy">`
-  }
+${missingImage (film)}
   
 <!-- обгортка інформації під постером -->
 <div class="moviе-stats">
@@ -70,4 +63,16 @@ function releaseDateGenerate(film){
         return film.release_date;
     }   
     return  film.first_air_date;
+}
+
+ function missingImage (film){
+
+
+    if(film.poster_path){
+       return   `<img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2${film.poster_path}"   alt="${film.title}"
+        class="moviе-item__img" 
+         loading="lazy" 
+  />`
+    }
+     return `<img src="https://sd.keepcalms.com/i-w600/sorry-poster-is-missing.jpg" alt="${film.title}" class="moviе-item__img" loading="lazy">`;
 }
