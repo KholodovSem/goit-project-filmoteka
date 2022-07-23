@@ -24,7 +24,6 @@ export const genres = {
   10764: 'Reality',
   10765: 'Sci-Fi & Fantasy',
   10766: 'Soap',
-  0767: 'Talk',
   10768: 'War & Politics',
   10759: 'Action & Adventure',
 };
