@@ -25,4 +25,5 @@ export const refs = {
   },
   form: document.querySelector('.form'),
   input: document.querySelector('input'),
+  pagination: document.querySelector('#pagination1'),
 };
