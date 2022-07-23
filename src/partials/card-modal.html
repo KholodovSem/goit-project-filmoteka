@@ -1,0 +1,105 @@
+<div class="backdrop js-backdrop">
+  <div class="modal modal__card">
+    <button
+      type="button"
+      class="close-button js-close-button"
+      data-action="close-modal"
+    >
+      <svg class="icon-form" height="32" width="32">
+        <use href="./images/svg/symbol-defs.svg#icon-close"></use>
+      </svg>
+    </button>
+    <div class="modal__container js-modal-card">
+      <!-- -----------------Вставить сюда ----------------------->
+      <div class="modal__img-wrap">
+        <img
+          src="https://sd.keepcalms.com/i-w600/sorry-poster-is-missing.jpg"
+          alt="${title}"
+          loading="lazy"
+          class="modal__img"
+          data-id="${id}"
+        />
+        <button
+          class="modal__play-bacground play ${ !key && 'visually-hidden }"
+          data-src="${key}"
+        >
+          <svg class="modal__svg-background play"></svg>
+        </button>
+      </div>
+      <div class="modal__info-container">
+        <h2 class="modal__title-film">Sin City</h2>
+        <table class="modal__info">
+          <tr>
+            <td class="modal__info-category">Vote/Votes</td>
+            <td class="modal__info-value">
+              <span class="modal__vote">9.8</span
+              ><span class="modal__slash">/</span
+              ><span class="modal__votes">5000</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="modal__info-category">Popularity</td>
+            <td class="modal__info-value">10000</td>
+          </tr>
+          <tr>
+            <td class="modal__info-category">Original Title</td>
+            <td class="modal__info-value">Sin City</td>
+          </tr>
+          <tr>
+            <td class="modal__info-category">Genre</td>
+            <td class="modal__info-value">Thriller</td>
+          </tr>
+        </table>
+        <p class="modal__title-about">About</p>
+        <p class="modal__article-about-movie">
+          Welcome to Sin City. This town beckons to the tough, the corrupt, the
+          brokenhearted. Some call it dark… Hard-boiled. Then there are those
+          who call it home — Crooked cops, sexy dames, desperate vigilantes.
+          Some are seeking revenge, others lust after redemption, and then there
+          are those hoping for a little of both. A universe of unlikely and
+          reluctant heroes still trying to do the right thing in a city that
+          refuses to care.
+        </p>
+        <div class="modal__button-wrap">
+          <div class="modal__button-container">
+            <button
+              type="submit"
+              class="modal__button js-watched js-watched-add ${ watched && 'visually-hidden' }"
+              id="js-watched-add"
+              data-id="${id}"
+            >
+              ADD TO WATCHED
+            </button>
+            <!-- <button
+              type="button"
+              class="modal__button js-watched js-watched-del ${ !watched && 'visually-hidden' }"
+              id="js-watched-del"
+              data-id="${id}"
+            >
+              DELETE FROM WATCHED
+            </button> -->
+          </div>
+          <div class="modal__button-container">
+            <button
+              type="submit"
+              class="modal__button js-queue js-queue-add ${ queue && 'visually-hidden' }"
+              id="js-queue-add"
+              data-id="${id}"
+            >
+              ADD TO QUEUE
+            </button>
+            <!-- <button
+              type="submit"
+              class="modal__button js-queue js-queue-del ${ !queue && 'visually-hidden' }"
+              id="js-queue-del"
+              data-id="${id}"
+            >
+              DELETE FROM QUEUE
+            </button> -->
+          </div>
+        </div>
+      </div>
+      <!-- -----------------Конец вставки ----------------------->
+    </div>
+  </div>
+</div>
