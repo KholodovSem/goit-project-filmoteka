@@ -1,4 +1,4 @@
-<header class="header-section">
+const homeMarkup = `<header class="header-section">
   <div class="header__wrapper">
     <a href="./index.html" class="header__logo">
       <img src="./images/SVG/film.svg" alt="Logo" class="header__icon" />
@@ -42,4 +42,9 @@
       <button type="submit">F</button>
     </form>
   </div>
-</header>
+</header>`;
+
+export function renderHomeMarkup(event, element) {
+  event.preventDefault();
+  element.innerHTML = homeMarkup;
+}
