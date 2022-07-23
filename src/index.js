@@ -3,8 +3,10 @@ import { FetchFilms } from './js/FetchFilmsClass';
 import { renderMarkup } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
-import {options, pagination1} from './js/pagination'
-
+import {options, pagination1, paginationTrending, paginationSearch} from './js/pagination'
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
+import throttle from 'lodash.throttle';
 import {
   openRegModal,
   closeRegModal,
@@ -15,7 +17,8 @@ import {
   userAuthorization,
 } from './JS/registrationAndAuthorization';
 import { localStorageAPI } from './JS/localStorage';
-
+import Notiflix from 'notiflix';
+console.log(paginationTrending);
 //! Переменные
 const fetchFilms = new FetchFilms();
 //?Модальное окно регистрации
@@ -65,41 +68,9 @@ refs.backToTopBtn.addEventListener('click', scrollTo);
 
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 
-refs.pagination.addEventListener("click", (event)=>{
-  
-  if(event.target.textContent === "prev"){
-    fetchFilms.decrementPage()
-    scrollTo()
-    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
-  }
-  if(event.target.textContent === "first"){
-    fetchFilms.setPage(1)
-    scrollTo()
-    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
-  }
-  if(event.target.textContent === "next"){
-    fetchFilms.incrementPage()
-    scrollTo()
-    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
-  }
 
-  if(event.target.textContent === "last"){
-    fetchFilms.setPage(100)
-    scrollTo()
-    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
-  }
+refs.pagination.addEventListener("click", paginationTrending)
 
-  if(event.target.textContent === "..."){
-   return;
-  }
-
-  const page = event.target.textContent;
-  fetchFilms.setPage(page)
-  scrollTo()
- 
-  
-  return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
-})
 
 //*Модальное окно регистрации
 // Открытие модального окна
@@ -159,23 +130,40 @@ registrationModalForm.addEventListener('submit', event => {
 });
 
 // What is this?
-refs.form.addEventListener('submit', searchImage);
+let query = ""
+refs.form.addEventListener('submit', searchFilm);
 
-// function clearGallery() {
-//   refs.gallery.innerHTML = '';
-// }
 
-function searchImage(event) {
+
+
+function searchFilm(event) {
   event.preventDefault();
-
-  const query = refs.input.value;
-  console.log(query);
+  fetchFilms.setPage(1)
+      options.page= 1;
+  query = refs.input.value;
   if (query) {
-    // searchBtn.toggleIcon().disable();
 
-    fetchFilms.fetchFilmsSearch(query).then(results => renderMarkup(results));
-    console.log(query);
-    // searchBtn.toggleIcon().enable();
+    fetchFilms.fetchFilmsSearch(query).then(results => {
+      if(results.data.results.length === 0 ){
+        return Notiflix.Notify.failure("Sorry, there aren`t films with that name. Try again")
+      }
+      
+      options.totalItems = results.data.total_pages * 5;
+      if(options.totalItems >500){
+        options.totalItems = 500;
+      }
+      const pagination1 = new Pagination('pagination1', options);
+      return renderMarkup(results)});
   }
-}
+  refs.pagination.removeEventListener("click", paginationTrending)
+  refs.pagination.removeEventListener("click", paginationCallback)
+  refs.pagination.addEventListener("click", paginationCallback)
+  
+ 
+  }
+  
 
+
+  function paginationCallback(event){
+    paginationSearch(event, query)
+  }

@@ -82,13 +82,5 @@ function missingImage(film) {
 }
 
 // Функция поиска фильма по имени
-const fetchFilms = new FetchFilms();
-refs.form.addEventListener('submit', searchImage);
-function searchImage(event) {
-  event.preventDefault();
-  const query = refs.input.value;
-  if (query) {
-    fetchFilms.fetchFilmsSearch(query).then(results => renderMarkup(results));
-  }
-}
+
 
