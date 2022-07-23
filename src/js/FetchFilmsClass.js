@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 export class FetchFilms{
 
@@ -67,8 +68,12 @@ export class FetchFilms{
         this.page += 1;
     }
 
-    DecrementPage() {
+    decrementPage() {
         this.page -= 1;
+    }
+
+    setPage(count){
+        this.page = count;
     }
 }
 

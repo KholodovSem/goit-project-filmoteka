@@ -3,8 +3,8 @@ import { FetchFilms } from './js/FetchFilmsClass';
 import { renderMarkup } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
-import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
+import {options, pagination1} from './js/pagination'
+
 import {
   openRegModal,
   closeRegModal,
@@ -52,18 +52,49 @@ const libraryLink = refs.navigation.libraryLink;
 })();
 
 //*Запрос и рендеринг популярных фильмов
-fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+
 
 //*Кнопка скролла вверх
 window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
-const pagination1 = new Pagination('pagination1', {
-  totalItems: 500,
-  itemsPerPage: 10,
-  visiblePages: 5,
-});
+
+
+
+
+fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+
+refs.pagination.addEventListener("click", (event)=>{
+  
+  if(event.target.textContent === "prev"){
+    fetchFilms.decrementPage()
+    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+  }
+  if(event.target.textContent === "first"){
+    fetchFilms.setPage(1)
+    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+  }
+  if(event.target.textContent === "next"){
+    fetchFilms.incrementPage()
+    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+  }
+
+  if(event.target.textContent === "last"){
+    fetchFilms.setPage(100)
+    return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+  }
+
+  if(event.target.textContent === "..."){
+   return;
+  }
+
+  const page = event.target.textContent;
+  fetchFilms.setPage(page)
+ 
+  
+  return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+})
 
 //*Модальное окно регистрации
 // Открытие модального окна
@@ -142,3 +173,4 @@ function searchImage(event) {
     // searchBtn.toggleIcon().enable();
   }
 }
+

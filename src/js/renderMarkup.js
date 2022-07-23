@@ -7,8 +7,11 @@ export function renderMarkup(results, watched, queue) {
   refs.movieContainer.innerHTML = '';
   const markup = results.data.results
     .map(
-      film =>
-        `
+      film =>{
+      if(film.known_for){
+        return ;}
+        
+      return  `
 <li class="gallery-items films__gallery-item" data-id=${film.id}>
 <a href="#!" class="list-card__link">
 <!-- постер -->
@@ -31,7 +34,8 @@ ${missingImage(film)}
     </div>
 </a>
 </li>`
-    )
+
+})
     .join('');
 
   refs.movieContainer.insertAdjacentHTML('beforeend', markup);
@@ -87,3 +91,4 @@ function searchImage(event) {
     fetchFilms.fetchFilmsSearch(query).then(results => renderMarkup(results));
   }
 }
+
