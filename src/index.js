@@ -83,19 +83,23 @@ refs.pagination.addEventListener("click", (event)=>{
   
   if(event.target.textContent === "prev"){
     fetchFilms.decrementPage()
+    scrollTo()
     return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
   }
   if(event.target.textContent === "first"){
     fetchFilms.setPage(1)
+    scrollTo()
     return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
   }
   if(event.target.textContent === "next"){
     fetchFilms.incrementPage()
+    scrollTo()
     return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
   }
 
   if(event.target.textContent === "last"){
     fetchFilms.setPage(100)
+    scrollTo()
     return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
   }
 
@@ -105,6 +109,7 @@ refs.pagination.addEventListener("click", (event)=>{
 
   const page = event.target.textContent;
   fetchFilms.setPage(page)
+  scrollTo()
  
   
   return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
