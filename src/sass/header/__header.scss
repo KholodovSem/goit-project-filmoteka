@@ -71,12 +71,20 @@
   }
 }
 
-// .form {
-//   display: flex;
-//   flex-direction: row;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
+.form {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 280px;
+
+  @media screen and (min-width: 768px) {
+    width: 336px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 394px;
+  }
+}
 
 // .form-button {
 //   background-color: transparent;
@@ -86,3 +94,33 @@
 // .form-button:hover {
 //   color: orange;
 // }
+
+.headerinput-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.headerinput {
+  width: 100%;
+  padding: 0 0 4px 0;
+
+  color: #ffffff;
+  font-size: 14px;
+  line-height: calc(16 / 14);
+
+  background: none;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #fff;
+
+  &::placeholder {
+    color: #fff;
+  }
+}
+
+.headerinput-icon {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  display: inline;
+}

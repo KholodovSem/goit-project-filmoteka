@@ -3,6 +3,10 @@
   background-color: $orange-color !important;
 }
 
+.tui-pagination {
+  padding-bottom: 50px;
+}
+
 .tui-pagination .tui-page-btn {
   @include untilTablet {
     width: 25px !important;
