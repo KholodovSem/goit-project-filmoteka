@@ -68,8 +68,8 @@ refs.backToTopBtn.addEventListener('click', scrollTo);
 
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 
-refs.pagination.addEventListener("click", paginationTrending)
 
+refs.pagination.addEventListener("click", paginationTrending)
 
 
 //*Модальное окно регистрации

@@ -1,7 +1,7 @@
 import { refs } from './refs';
 
 export function scrollTo() {
-  window.scrollTo({ top: 100, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 export function scrollToTopButton() {
