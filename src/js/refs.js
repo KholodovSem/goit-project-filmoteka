@@ -1,6 +1,13 @@
 export const refs = {
   movieContainer: document.querySelector('.films__gallery'),
   backToTopBtn: document.querySelector('.back-to-top-btn'),
+  openModalBtn: document.querySelector('.films__gallery'),
+  closeModalBtn: document.querySelector('.js-close-button'),
+  modal: document.querySelector('.js-backdrop'),
+  body: document.querySelector('body'),
+  movieOneCardContainer: document.querySelector('.films__gallery'),
+  cardModalMovie: document.querySelector('.js-modal-card'), //на один фильм
+  backdropMovie: document.querySelector('.movie-backdrop'),
   registrationModal: {
     regModal: document.querySelector('.registration-modal'),
     form: document.querySelector('.registration-form'),

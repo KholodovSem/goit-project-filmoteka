@@ -3,9 +3,15 @@ import { FetchFilms } from './js/FetchFilmsClass';
 import { renderMarkup } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
-import {options, pagination1, paginationTrending, paginationSearch} from './js/pagination'
+import {
+  options,
+  pagination1,
+  paginationTrending,
+  paginationSearch,
+} from './js/pagination';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
+import './js/modal-cards.js';
 import throttle from 'lodash.throttle';
 import {
   openRegModal,
@@ -56,21 +62,15 @@ const libraryLink = refs.navigation.libraryLink;
 
 //*Запрос и рендеринг популярных фильмов
 
-
 //*Кнопка скролла вверх
 window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
 
-
-
-
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 
-
-refs.pagination.addEventListener("click", paginationTrending)
-
+refs.pagination.addEventListener('click', paginationTrending);
 
 //*Модальное окно регистрации
 // Открытие модального окна
@@ -130,40 +130,35 @@ registrationModalForm.addEventListener('submit', event => {
 });
 
 // What is this?
-let query = ""
+let query = '';
 refs.form.addEventListener('submit', searchFilm);
-
-
-
 
 function searchFilm(event) {
   event.preventDefault();
-  fetchFilms.setPage(1)
-      options.page= 1;
+  fetchFilms.setPage(1);
+  options.page = 1;
   query = refs.input.value;
   if (query) {
-
     fetchFilms.fetchFilmsSearch(query).then(results => {
-      if(results.data.results.length === 0 ){
-        return Notiflix.Notify.failure("Sorry, there aren`t films with that name. Try again")
+      if (results.data.results.length === 0) {
+        return Notiflix.Notify.failure(
+          'Sorry, there aren`t films with that name. Try again'
+        );
       }
-      
+
       options.totalItems = results.data.total_pages * 5;
-      if(options.totalItems >500){
+      if (options.totalItems > 500) {
         options.totalItems = 500;
       }
       const pagination1 = new Pagination('pagination1', options);
-      return renderMarkup(results)});
+      return renderMarkup(results);
+    });
   }
-  refs.pagination.removeEventListener("click", paginationTrending)
-  refs.pagination.removeEventListener("click", paginationCallback)
-  refs.pagination.addEventListener("click", paginationCallback)
-  
- 
-  }
-  
+  refs.pagination.removeEventListener('click', paginationTrending);
+  refs.pagination.removeEventListener('click', paginationCallback);
+  refs.pagination.addEventListener('click', paginationCallback);
+}
 
-
-  function paginationCallback(event){
-    paginationSearch(event, query)
-  }
+function paginationCallback(event) {
+  paginationSearch(event, query);
+}
