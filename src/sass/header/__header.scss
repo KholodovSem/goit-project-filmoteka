@@ -31,7 +31,7 @@
 }
 
 .header-section-library {
-  padding-bottom: 62px;
+  padding-bottom: 93px;
 
   @media screen and (max-width: 320px) {
     background-image: url(../images/header-mob-watched-queue-1x-min.jpg);
@@ -41,6 +41,8 @@
   @media screen and (min-width: 321px) and (max-width: 768px) {
     background-image: url(../images/header-tab-watched-queue-1x-min.jpg);
     background-size: 100% 100%;
+
+    padding-bottom: 103px;
   }
 
   @media screen and (min-width: 769px) {

@@ -1,5 +1,6 @@
 .header__link-list {
   display: flex;
+  align-items: center;
 
   padding-left: 0;
   margin-top: 0;
@@ -7,7 +8,7 @@
 }
 
 .header__item:not(:last-child) {
-  margin-right: 40px;
+  margin-right: 35px;
 }
 
 .header__link {

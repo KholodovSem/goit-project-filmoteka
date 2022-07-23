@@ -15,8 +15,6 @@ import {
   userAuthorization,
 } from './JS/registrationAndAuthorization';
 import { localStorageAPI } from './JS/localStorage';
-import { renderLibraryMarkup } from './JS/libraryPage';
-import { renderHomeMarkup } from './JS/homePage';
 
 //! Переменные
 const fetchFilms = new FetchFilms();
@@ -41,8 +39,6 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //? Навигационные ссылки хедера
 const homeLink = refs.navigation.homeLink;
 const libraryLink = refs.navigation.libraryLink;
-//
-const headerDiv = document.querySelector('.div-header');
 
 //*Проверка доступа
 (function () {
@@ -54,16 +50,6 @@ const headerDiv = document.querySelector('.div-header');
     }
   }, 1000);
 })();
-
-// //*Рендеринг разметки
-// //Library
-// libraryLink.addEventListener('click', event => {
-//   renderLibraryMarkup(event, headerDiv);
-// });
-// //Home
-// homeLink.addEventListener('click', event => {
-//   renderHomeMarkup(event, headerDiv);
-// });
 
 //*Запрос и рендеринг популярных фильмов
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
