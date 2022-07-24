@@ -3,7 +3,6 @@ import { FetchFilms } from './js/FetchFilmsClass';
 import { renderMarkup } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
-import { options, pagination1 } from './js/pagination';
 import {
   options,
   pagination1,
@@ -13,7 +12,6 @@ import {
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import './js/modal-cards.js';
-import throttle from 'lodash.throttle';
 import {
   openRegModal,
   closeRegModal,
@@ -240,5 +238,3 @@ function onCloseBackdrop(e) {
   }
 }
 
-const modalWindow = document.querySelector('.developers__modal');
-console.log(modalWindow);
