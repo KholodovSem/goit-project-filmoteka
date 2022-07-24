@@ -1,3 +1,113 @@
 .is-hidden {
   display: none;
 }
+
+.footer__btn {
+  text-decoration: underline;
+  text-align: center;
+  border: none;
+  color: inherit;
+  background-color: inherit;
+  cursor: pointer;
+  font-weight: inherit;
+}
+
+.footer__btn:hover,
+.footer__btn:focus {
+  color: $orange-color;
+}
+
+.modal-developers-is-open {
+  overflow: hidden;
+}
+
+.developers__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.developers__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 500px;
+  width: 260px;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  padding-top: 0px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: block;
+  overflow-y: scroll;
+  @media screen and(min-width:768px) {
+    width: 600px;
+  }
+  @media screen and(min-width:1280px) {
+    width: 650px;
+    height: 600px;
+    overflow: auto;
+  }
+}
+
+.developers__title {
+  text-align: center;
+  padding: 15px 0;
+  font-weight: 700;
+}
+
+.developer__name {
+  padding-top: 5px;
+  font-size: 22px;
+  text-align: center;
+}
+
+.developer__position {
+  font-size: 18px;
+  padding-top: 5px;
+  text-align: center;
+}
+
+.card-list {
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  @media screen and (min-width: 1280px) {
+    display: inline-block;
+  }
+}
+
+.card-link_footer {
+  width: 235px;
+  height: 100%;
+  margin: 0 auto 10px;
+  @media screen and(min-width:768px) {
+    width: 250px;
+  }
+  @media screen and(min-width:1280px) {
+    width: 300px;
+  }
+}
+
+.photo-teammate {
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
+
+  @media screen and(min-width:768px) {
+    width: 277px;
+    height: 300px;
+  }
+
+  @media screen and(min-width:1280px) {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+  }
+}
