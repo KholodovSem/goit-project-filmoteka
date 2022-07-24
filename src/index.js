@@ -4,7 +4,16 @@ import { renderMarkup } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
 import { options, pagination1 } from './js/pagination';
-
+import {
+  options,
+  pagination1,
+  paginationTrending,
+  paginationSearch,
+} from './js/pagination';
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
+import './js/modal-cards.js';
+import throttle from 'lodash.throttle';
 import {
   openRegModal,
   closeRegModal,
@@ -15,7 +24,8 @@ import {
   userAuthorization,
 } from './JS/registrationAndAuthorization';
 import { localStorageAPI } from './JS/localStorage';
-
+import Notiflix from 'notiflix';
+console.log(paginationTrending);
 //! Переменные
 const fetchFilms = new FetchFilms();
 //?Модальное окно регистрации
@@ -98,6 +108,9 @@ refs.pagination.addEventListener('click', event => {
   return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 });
 
+refs.pagination.addEventListener('click', paginationTrending);
+
+
 //*Модальное окно регистрации
 // Открытие модального окна
 userAccBtn.addEventListener('click', event => openRegModal(event, regModal));
@@ -156,27 +169,42 @@ registrationModalForm.addEventListener('submit', event => {
 });
 
 // What is this?
-refs.form.addEventListener('submit', searchImage);
+let query = '';
+refs.form.addEventListener('submit', searchFilm);
 
-// function clearGallery() {
-//   refs.gallery.innerHTML = '';
-// }
-
-function searchImage(event) {
+function searchFilm(event) {
   event.preventDefault();
-
-  const query = refs.input.value;
-  console.log(query);
+  fetchFilms.setPage(1);
+  options.page = 1;
+  query = refs.input.value;
   if (query) {
-    // searchBtn.toggleIcon().disable();
+    fetchFilms.fetchFilmsSearch(query).then(results => {
+      if (results.data.results.length === 0) {
+        return Notiflix.Notify.failure(
+          'Sorry, there aren`t films with that name. Try again'
+        );
+      }
 
-    fetchFilms.fetchFilmsSearch(query).then(results => renderMarkup(results));
-    console.log(query);
-    // searchBtn.toggleIcon().enable();
+      options.totalItems = results.data.total_pages * 5;
+      if (options.totalItems > 500) {
+        options.totalItems = 500;
+      }
+      const pagination1 = new Pagination('pagination1', options);
+      return renderMarkup(results);
+    });
   }
+  refs.pagination.removeEventListener('click', paginationTrending);
+  refs.pagination.removeEventListener('click', paginationCallback);
+  refs.pagination.addEventListener('click', paginationCallback);
 }
+
 
 // Modal footer
 
 const modalWindow = document.querySelector('.developers__modal');
 console.log(modalWindow);
+
+function paginationCallback(event) {
+  paginationSearch(event, query);
+}
+
