@@ -17,3 +17,12 @@ export const localStorageAPI = {
     }
   },
 };
+
+//Переключение между главной страницой и библиотекой
+export function currentPageLibrary(){
+  localStorageAPI.save('CurrentPage', 'Library')
+}
+
+export function currentPageHome(){
+  localStorageAPI.save('CurrentPage', 'Home')
+}

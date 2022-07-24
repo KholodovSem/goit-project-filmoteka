@@ -21,9 +21,10 @@ import {
   userRegistration,
   userAuthorization,
 } from './JS/registrationAndAuthorization';
-import { localStorageAPI } from './JS/localStorage';
+import { localStorageAPI, currentPageLibrary, currentPageHome } from './JS/localStorage';
 import Notiflix from 'notiflix';
-console.log(paginationTrending);
+
+
 //! Переменные
 const fetchFilms = new FetchFilms();
 //?Модальное окно регистрации
@@ -59,6 +60,10 @@ const libraryLink = refs.navigation.libraryLink;
   }, 1000);
 })();
 
+//Рендеринг для главной страницы и для библиотеки
+libraryLink.addEventListener('click', currentPageLibrary);
+homeLink.addEventListener('click', currentPageHome);
+
 //*Запрос и рендеринг популярных фильмов
 
 //*Кнопка скролла вверх
@@ -66,7 +71,9 @@ window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
-
+if(localStorageAPI.load('CurrentPage') === 'Library'){
+  return;
+}
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 
 refs.pagination.addEventListener('click', event => {

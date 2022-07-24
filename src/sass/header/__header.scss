@@ -6,15 +6,34 @@
   @media screen and (max-width: 320px) {
     background-image: url(../images/header-background-mob-1x-min.jpg);
     background-size: 100% 100%;
+
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+      background-image: url(../images/header-background-mob-2x-min.jpg);
+    }
   }
 
   @media screen and (min-width: 321px) and (max-width: 768px) {
     background-image: url(../images/header-bgc-tab-1x-min.jpg);
     background-size: 100% 100%;
+
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+      background-image: url(../images/header-bgc-tab-2x-min.jpg);
+    }
   }
+
   @media screen and (min-width: 769px) {
     background-image: url(../images/desk-header-1x-min.jpg);
     background-size: 100% 100%;
+
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+      background-image: url(../images/desk-header-2x-min.jpg);
+    }
   }
 
   @media screen and (max-width: 767px) {
@@ -36,6 +55,12 @@
   @media screen and (max-width: 320px) {
     background-image: url(../images/header-mob-watched-queue-1x-min.jpg);
     background-size: 100% 100%;
+
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+      background-image: url(../images/header-mob-watched-queue-2x-min.jpg);
+    }
   }
 
   @media screen and (min-width: 321px) and (max-width: 768px) {
@@ -43,11 +68,23 @@
     background-size: 100% 100%;
 
     padding-bottom: 103px;
+
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+      background-image: url(../images/header-tab-watched-queue-2x-min.jpg);
+    }
   }
 
   @media screen and (min-width: 769px) {
     background-image: url(../images/header-desk-watched-queue-1x-min.jpg);
     background-size: 100% 100%;
+
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+      background-image: url(../images/header-desk-watched-queue-2x-min.jpg);
+    }
   }
 }
 
