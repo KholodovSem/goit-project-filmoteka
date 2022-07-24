@@ -163,6 +163,7 @@ function paginationCallback(event) {
   paginationSearch(event, query);
 <<<<<<< Updated upstream
 }
+<<<<<<< Updated upstream
 =======
 }
 
@@ -201,4 +202,9 @@ function onCloseBackdrop(e) {
     backdrop.classList.add('is-hidden');
   }
 }
+>>>>>>> Stashed changes
+=======
+
+const modalWindow = document.querySelector('.developers__modal');
+console.log(modalWindow);
 >>>>>>> Stashed changes
