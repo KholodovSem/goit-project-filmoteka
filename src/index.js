@@ -207,7 +207,6 @@ console.log(modalWindow);
 function paginationCallback(event) {
   paginationSearch(event, query);
 }
-}
 
 const openFooterModal = document.querySelector('.footer__btn');
 const backdrop = document.querySelector('.developers__backdrop');
