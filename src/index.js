@@ -3,6 +3,7 @@ import { FetchFilms } from './js/FetchFilmsClass';
 import { renderMarkup } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
+import { options, pagination1 } from './js/pagination';
 import {
   options,
   pagination1,
@@ -70,7 +71,45 @@ refs.backToTopBtn.addEventListener('click', scrollTo);
 
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
 
+refs.pagination.addEventListener('click', event => {
+  if (event.target.textContent === 'prev') {
+    fetchFilms.decrementPage();
+    return fetchFilms
+      .fetchFilmsTrending()
+      .then(results => renderMarkup(results));
+  }
+  if (event.target.textContent === 'first') {
+    fetchFilms.setPage(1);
+    return fetchFilms
+      .fetchFilmsTrending()
+      .then(results => renderMarkup(results));
+  }
+  if (event.target.textContent === 'next') {
+    fetchFilms.incrementPage();
+    return fetchFilms
+      .fetchFilmsTrending()
+      .then(results => renderMarkup(results));
+  }
+
+  if (event.target.textContent === 'last') {
+    fetchFilms.setPage(100);
+    return fetchFilms
+      .fetchFilmsTrending()
+      .then(results => renderMarkup(results));
+  }
+
+  if (event.target.textContent === '...') {
+    return;
+  }
+
+  const page = event.target.textContent;
+  fetchFilms.setPage(page);
+
+  return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+});
+
 refs.pagination.addEventListener('click', paginationTrending);
+
 
 //*Модальное окно регистрации
 // Открытие модального окна
@@ -159,15 +198,17 @@ function searchFilm(event) {
   refs.pagination.addEventListener('click', paginationCallback);
 }
 
-function paginationCallback(event) {
-  paginationSearch(event, query);
-<<<<<<< Updated upstream
-}
-<<<<<<< Updated upstream
-=======
-}
 
 // Modal footer
+
+const modalWindow = document.querySelector('.developers__modal');
+console.log(modalWindow);
+
+function paginationCallback(event) {
+  paginationSearch(event, query);
+}
+}
+
 const openFooterModal = document.querySelector('.footer__btn');
 const backdrop = document.querySelector('.developers__backdrop');
 const modalWindow = document.querySelector('.developers__modal');
@@ -202,9 +243,6 @@ function onCloseBackdrop(e) {
     backdrop.classList.add('is-hidden');
   }
 }
->>>>>>> Stashed changes
-=======
 
 const modalWindow = document.querySelector('.developers__modal');
 console.log(modalWindow);
->>>>>>> Stashed changes
