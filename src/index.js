@@ -161,4 +161,44 @@ function searchFilm(event) {
 
 function paginationCallback(event) {
   paginationSearch(event, query);
+<<<<<<< Updated upstream
 }
+=======
+}
+
+// Modal footer
+const openFooterModal = document.querySelector('.footer__btn');
+const backdrop = document.querySelector('.developers__backdrop');
+const modalWindow = document.querySelector('.developers__modal');
+const backToTopBtn = document.querySelector('.back-to-top-btn');
+const body = document.body;
+openFooterModal.addEventListener('click', onModalOpen);
+
+function onModalOpen() {
+  body.classList.add('no-scroll');
+  backToTopBtn.classList.add('is-hidden');
+  modalWindow.classList.remove('is-hidden');
+  backdrop.classList.remove('is-hidden');
+}
+
+document.addEventListener('keydown', onModalClose);
+backdrop.addEventListener('click', onCloseBackdrop);
+
+function onModalClose(e) {
+  if (e.code === 'Escape') {
+    body.classList.remove('no-scroll');
+    modalWindow.classList.add('is-hidden');
+    backdrop.classList.add('is-hidden');
+    document.removeEventListener('keydown', onModalClose);
+    backdrop.addEventListener('click', onModalClose);
+  }
+}
+
+function onCloseBackdrop(e) {
+  console.log(e);
+  if (e.target === backdrop) {
+    body.classList.remove('no-scroll');
+    backdrop.classList.add('is-hidden');
+  }
+}
+>>>>>>> Stashed changes

@@ -33,4 +33,11 @@ export const refs = {
   form: document.querySelector('.form'),
   input: document.querySelector('input'),
   pagination: document.querySelector('#pagination1'),
+<<<<<<< Updated upstream
+=======
+  openFooterModal: document.querySelector('.footer__btn'),
+  homePage: document.body,
+  backdrop: document.querySelector('.developers__backdrop'),
+  modalWindow: document.querySelector('.developers__modal'),
+>>>>>>> Stashed changes
 };
