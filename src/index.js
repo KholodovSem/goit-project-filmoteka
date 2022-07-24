@@ -201,9 +201,6 @@ function searchFilm(event) {
 
 // Modal footer
 
-const modalWindow = document.querySelector('.developers__modal');
-console.log(modalWindow);
-
 function paginationCallback(event) {
   paginationSearch(event, query);
 }
