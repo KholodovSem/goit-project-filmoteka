@@ -275,14 +275,33 @@ refs.movieContainer.addEventListener('click', event => {
       }
 
       function addNameFilmByQueueOrWatchedListener (event){
-        if(event.target.getAttribute('id') === 'js-queue-add'){
+        if(event.target.getAttribute('id') === 'js-queue-add' && event.target.textContent === 'ADD TO QUEUE'){
           event.target.textContent = 'Remove from queue';
           addNameFilmByQueue(nameFilm);
+          return;
         }
 
-        if(event.target.getAttribute('id') === 'js-watched-add'){
+
+        if(event.target.getAttribute('id') === 'js-queue-add' && event.target.textContent === 'Remove from queue'){
+          event.target.textContent = "ADD TO QUEUE";
+          const indexToDelete = queueFilms.findIndex((e) => e === nameFilm.textContent);
+          queueFilms.splice(indexToDelete, 1);
+          localStorageAPI.save('QueueFilms',queueFilms);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if(event.target.getAttribute('id') === 'js-watched-add' && event.target.textContent === 'ADD TO WATCHED'){
           event.target.textContent = 'Remove from watched';
           addNameFilmByWatched(nameFilm);
+          return;
+        }
+
+        if(event.target.getAttribute('id') === 'js-watched-add' && event.target.textContent === 'Remove from watched'){
+          event.target.textContent = "ADD TO WATCHED";
+          const indexToDelete = watchedFilms.findIndex((e) => e === nameFilm.textContent);
+          watchedFilms.splice(indexToDelete, 1);
+          localStorageAPI.save('WatchedFilms',watchedFilms);
         }
       }
       //
