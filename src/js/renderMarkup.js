@@ -1,9 +1,5 @@
 import { refs } from './refs';
-import axios from 'axios';
 import { genres } from './genresObject';
-import { FetchFilms } from './FetchFilmsClass';
-import { data } from 'jquery';
-const { MovieTrendContainer } = refs;
 
 export function renderMarkup(results, watched, queue) {
   refs.movieContainer.innerHTML = '';
@@ -14,24 +10,22 @@ export function renderMarkup(results, watched, queue) {
       }
 
       return `
-<li class="gallery-items films__gallery-item" data-id=${film.id}>
-<a href="#!" class="list-card__link">
+<li class='gallery-items films__gallery-item' data-id='${film.id}'>
+<a href='#!' class='list-card__link'>
 <!-- постер -->
 ${missingImage(film)}
-  
+
 <!-- обгортка інформації під постером -->
-<div class="moviе-stats">
-    <h2 class="moviе-stats__title" data-id=${film.id} data-watched=${watched}
-         data-queue=${queue}>${nameTitleGenerate(film)}</h2>
-    <div class="moviе-stats__info" >
+<div class='moviе-stats'>
+    <h2 class='moviе-stats__title' data-id='${film.id}' data-watched='${watched}'
+         data-queue='${queue}'>${nameTitleGenerate(film)}</h2>
+    <div class='moviе-stats__info' >
 <!-- список жанрів -->
-<p class="moviе-genre">${genreGenerate(film)}</p>
+<p class='moviе-genre'>${genreGenerate(film)}</p>
 <!-- дата виходу та рейтинг -->
-<p class="moviе-year">|  ${new Date(
-        releaseDateGenerate(film)
-      ).getFullYear()}</p>
+<p class='moviе-year'>|  ${new Date(releaseDateGenerate(film)).getFullYear()}</p>
 <!-- рейтинг -->
-<p class="moviе-vote">${film.vote_average.toFixed(1)}</p>
+<p class='moviе-vote'>${film.vote_average.toFixed(1)}</p>
 </div>
     </div>
 </a>
@@ -74,12 +68,12 @@ function releaseDateGenerate(film) {
 
 function missingImage(film) {
   if (film.poster_path) {
-    return `<img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2${film.poster_path}"   alt="${film.title}"
-        class="moviе-item__img" 
-         loading="lazy" 
+    return `<img src='https://www.themoviedb.org/t/p/w600_and_h900_bestv2${film.poster_path}'   alt='${film.title}'
+        class='moviе-item__img'
+         loading='lazy'
   />`;
   }
-  return `<img src="https://sd.keepcalms.com/i-w600/sorry-poster-is-missing.jpg" alt="${film.title}" class="moviе-item__img" loading="lazy">`;
+  return `<img src='https://sd.keepcalms.com/i-w600/sorry-poster-is-missing.jpg' alt='${film.title}' class='moviе-item__img' loading='lazy'>`;
 }
 
 // Функция поиска фильма по имени
@@ -114,8 +108,8 @@ function missingImage(film) {
 
 export function renderMarkupCard(results) {
 
-  refs.cardModalMovie.innerHTML = ""
-  
+  refs.cardModalMovie.innerHTML = '';
+
   // const {
   //   poster_path,
   //   title,
@@ -129,78 +123,67 @@ export function renderMarkupCard(results) {
   // } = data;
 
 
-
-
-
- const markup =  `<div class="modal__img-wrap">
-  <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2${results.data.poster_path}"   alt="${results.data.title}"
-      class="modal__img"
-       loading="lazy" 
+  const markup = `<div class='modal__img-wrap'>
+  <img src='https://www.themoviedb.org/t/p/w600_and_h900_bestv2${results.data.poster_path}'   alt='${results.data.title}'
+      class='modal__img'
+       loading='lazy'
 />
-        <div class="modal__play-bacground">
-          <span class="modal__svg-background"></span>
+        <div class='modal__play-bacground'>
+          <span class='modal__svg-background'></span>
         </div>
         </a>
 </div>
-      <div class="modal__info-container">
-        <h2 class="modal__title-film">${results.data.title}</h2>
-        <table class="modal__info">
+      <div class='modal__info-container kennie-west'>
+        <h2 class='modal__title-film'>${results.data.title}</h2>
+        <table class='modal__info'>
           <tr>
-            <td class="modal__info-category">Vote/Votes</td>
-            <td class="modal__info-value">
-              <span class="modal__vote">${results.data.vote_average}</span
-              ><span class="modal__slash">/</span
-              ><span class="modal__votes">${results.data.vote_count}</span>
+            <td class='modal__info-category'>Vote/Votes</td>
+            <td class='modal__info-value'>
+              <span class='modal__vote'>${results.data.vote_average}</span
+              ><span class='modal__slash'>/</span
+              ><span class='modal__votes'>${results.data.vote_count}</span>
             </td>
           </tr>
           <tr>
-            <td class="modal__info-category">Popularity</td>
-            <td class="modal__info-value">${results.data.popularity}</td>
+            <td class='modal__info-category'>Popularity</td>
+            <td class='modal__info-value'>${results.data.popularity}</td>
           </tr>
           <tr>
-            <td class="modal__info-category">Original Title</td>
-            <td class="modal__info-value">${results.data.original_title}</td>
+            <td class='modal__info-category'>Original Title</td>
+            <td class='modal__info-value'>${results.data.original_title}</td>
           </tr>
           <tr>
-            <td class="modal__info-category">Genre</td>
-            <td class="modal__info-value">${results.data.genres
-              .map(item => item.name)
-              .join(', ')}</td>
+            <td class='modal__info-category'>Genre</td>
+            <td class='modal__info-value'>${results.data.genres
+    .map(item => item.name)
+    .join(', ')}</td>
           </tr>
         </table>
-        <p class="modal__title-about">About</p>
-        <p class="modal__article-about-movie">
+        <p class='modal__title-about'>About</p>
+        <p class='modal__article-about-movie'>
           ${results.data.overview}
         </p>
-        <div class="modal__button-wrap">
-          <div class="modal__button-container">
-            <button type="submit" class="modal__button js-watched-add" id="js-watched-add" data-id=${
-              results.data.id
-            }>
+        <div class='modal__button-wrap'>
+          <div class='modal__button-container'>
+            <button type='submit' class='modal__button js-watched-add' id='js-watched-add' data-id='${results.data.id}'>
               ADD TO WATCHED
             </button>
-            <button type="button" class="modal__button js-watched-delete visually-hidden" id="js-watched-del" data-id=${
-              results.data.id
-            }>
+            <button type='button' class='modal__button js-watched-delete visually-hidden' id='js-watched-del' data-id='${results.data.id}'>
               DELETE FROM WATCHED
             </button>
           </div>
-          <div class="modal__button-container">
-          <button type="submit" class="modal__button js-queue-add" id="js-queue-add" data-id=${
-            results.data.id
-          }>
+          <div class='modal__button-container'>
+          <button type='submit' class='modal__button js-queue-add' id='js-queue-add' data-id='${results.data.id}'>
               ADD TO QUEUE
             </button>
-            <button type="submit" class="modal__button js-queue-delete visually-hidden" id="js-queue-del" data-id=${
-              results.data.id
-            }>
+            <button type='submit' class='modal__button js-queue-delete visually-hidden' id='js-queue-del' data-id='${results.data.id}'>
               DELETE FROM  QUEUE
             </button>
           </div>
         </div>
-      </div>`
-    
-    
+      </div>`;
+
+
   return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
 }
 

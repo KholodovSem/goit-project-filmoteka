@@ -27,20 +27,3 @@ export function currentPageHome(){
   localStorageAPI.save('CurrentPage', 'Home')
 }
 
-//
-const queueFilms = new Set();
-const watchedFilms = new Set();
-
-export function addNameFilmByQueue (element){
-  let savedFilm;
-  savedFilm = element.textContent.toString();
-  console.log(savedFilm);
-  queueFilms.add(savedFilm);
-  console.log(queueFilms);
-  localStorageAPI.save('QueueFilms',queueFilms);
-}
-
-export function addNameFilmByWatched (element){
-  watchedFilms.add(element.textContent);
-  localStorageAPI.save('WatchedFilms',watchedFilms);
-}

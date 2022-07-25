@@ -1,15 +1,13 @@
 //Импорты
 import { FetchFilms } from './js/FetchFilmsClass';
-import { renderMarkup, renderMarkupCard, renderVideo } from './js/renderMarkup';
+import { renderMarkup, renderMarkupCard } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
 import {
   options,
-  pagination1,
   paginationTrending,
   paginationSearch,
 } from './js/pagination';
-import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import './js/modal-cards.js';
 import {
@@ -24,14 +22,9 @@ import {
 import {
   localStorageAPI,
   currentPageLibrary,
-  currentPageHome,
-  addNameFilmByQueue,
-  addNameFilmByWatched,
+  currentPageHome
 } from './JS/localStorage';
 import Notiflix from 'notiflix';
-import { data, event } from 'jquery';
-import axios from 'axios';
-
 
 //! Переменные
 const fetchFilms = new FetchFilms();
@@ -56,8 +49,8 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //? Навигационные ссылки хедера
 const homeLink = refs.navigation.homeLink;
 const libraryLink = refs.navigation.libraryLink;
-const modalCardRef = document.querySelector('.modal__container');
-console.log(modalCardRef);
+
+
 
 //*Проверка доступа
 (function() {
@@ -204,7 +197,6 @@ function searchFilm(event) {
       if (options.totalItems > 500) {
         options.totalItems = 500;
       }
-      const pagination1 = new Pagination('pagination1', options);
       return renderMarkup(results);
     });
   }
@@ -256,7 +248,10 @@ function onCloseBackdrop(e) {
 }
 
 //
-const nameFilm = document.querySelector('.modal__title-film')
+
+const queueFilms = [];
+const watchedFilms = [];
+
 // renderMarkupCard()
 refs.movieContainer.addEventListener('click', event => {
 
@@ -264,19 +259,45 @@ refs.movieContainer.addEventListener('click', event => {
   const id = event.target.getAttribute('data-id');
   console.log(id);
 
-  fetchFilms.fetchFilmsDetails(id).then(results => {
-    renderMarkupCard(results);
-    modalCardRef.addEventListener('click', (e) => {
-      if(e.target.getAttribute('id') === 'js-queue-add'){
-        addNameFilmByQueue(nameFilm);
+  fetchFilms.fetchFilmsDetails(id).then(async results => {
+    await renderMarkupCard(results);
+    const modalCardRef = document.querySelector('.kennie-west');
+    const nameFilm = document.querySelector('.modal__title-film');
+      //
+
+      //
+      function addNameFilmByQueue (element){
+        if(queueFilms.includes(element.textContent)){
+          return;
+        }
+        queueFilms.push(element.textContent);
+        localStorageAPI.save('QueueFilms',queueFilms);
       }
 
-      if(e.target.getAttribute('id') === 'js-watched-add'){
-        addNameFilmByWatched(nameFilm);
+      function addNameFilmByQueueOrWatchedListener (event){
+        if(event.target.getAttribute('id') === 'js-queue-add'){
+          event.target.textContent = 'Remove from queue';
+          addNameFilmByQueue(nameFilm);
+        }
+
+        if(event.target.getAttribute('id') === 'js-watched-add'){
+          event.target.textContent = 'Remove from watched';
+          addNameFilmByWatched(nameFilm);
+        }
       }
-    })
-  }
-)
+      //
+      function addNameFilmByWatched (element){
+        if(watchedFilms.includes(element.textContent)){
+          return;
+        }
+        watchedFilms.push(element.textContent);
+        localStorageAPI.save('WatchedFilms',watchedFilms);
+      }
+
+    modalCardRef.addEventListener('click', addNameFilmByQueueOrWatchedListener);
+    },
+  );
 
 });
+
 

@@ -1,5 +1,8 @@
 import { refs } from '../js/refs';
+import { addNameFilmByQueueOrWatchedListener } from './localStorage';
 const { movieContainer, closeModalBtn, modal, body } = refs;
+
+const modalCardRef = document.querySelector('.modal__container');
 
 movieContainer.addEventListener('click', showModal);
 closeModalBtn.addEventListener('click', closeModal);
@@ -25,6 +28,7 @@ function closeModal() {
   document.removeEventListener('keydown', closeEsc);
   body.classList.remove('modal-open');
   refs.cardModalMovie.innerHTML = '';
+  modalCardRef.removeEventListener('click', addNameFilmByQueueOrWatchedListener)
 }
 
 function closeEsc(evt) {
