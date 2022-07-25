@@ -43,5 +43,15 @@ export const refs = {
   backdrop: document.querySelector('.developers__backdrop'),
   openFooterModal: document.querySelector('.footer__btn'),
   homePage: document.body,
-  
 };
+
+// masiania
+export const masianiaEl = document.querySelector('.masiania');
+export const masianiaMessage = document.querySelector('.masiania__wrapp');
+export const masianiaTextEl = document.querySelector('.masiania__text');
+export const masianiaBtnListEl = document.querySelector('.masiania__list');
+export const masianiaBtnCloseEl = document.querySelector(
+  '.masiania__close-btn'
+);
+export const masianiaLinkEl = document.querySelector('.masiania__link');
+export const masianiaRightEl = document.querySelector('.masiania-right');
