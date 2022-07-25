@@ -48,15 +48,16 @@
   }
   @media screen and(min-width:1280px) {
     width: 650px;
-    height: 600px;
-    overflow: auto;
+    height: 640px;
   }
 }
 
 .developers__title {
   background-image: url(../images/mivina\ logo.png);
+  height: 9%;
+  background-position: center;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 27px;
   background-repeat: no-repeat;
   background-size: contain;
   text-align: center;
@@ -82,12 +83,10 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-  @media screen and (min-width: 1280px) {
-    display: inline-block;
-  }
 }
 
 .card-link_footer {
+  margin-bottom: 25px;
   width: 235px;
   height: 100%;
   margin: 0 auto 10px;
@@ -125,60 +124,4 @@
   @media screen and(min-width: 1280px) {
     position: relative;
   }
-}
-
-.developer__info--sem {
-  @media screen and(min-width: 1280px) {
-    position: absolute;
-    top: 59px;
-    left: 366px;
-  }
-}
-
-.stepa {
-  @media screen and(min-width: 1280px) {
-    position: relative;
-  }
-}
-
-.developer__info--stepa {
-  @media screen and(min-width: 1280px) {
-    position: absolute;
-    top: 54px;
-    width: 100%;
-    left: 296px;
-  }
-}
-
-.artur {
-  @media screen and(min-width: 1280px) {
-    position: relative;
-  }
-}
-
-.developer__info--artur {
-  @media screen and(min-width: 1280px) {
-    position: absolute;
-    bottom: 79px;
-    width: 100%;
-    left: 296px;
-  }
-}
-
-.nikita {
-  @media screen and(min-width: 1280px) {
-    position: relative;
-  }
-}
-
-.developer__info--nikita {
-  @media screen and(min-width: 1280px) {
-    position: absolute;
-    top: 64px;
-    width: 100%;
-    left: 299px;
-  }
-}
-
-@media screen and(min-width: 1280px) {
 }
