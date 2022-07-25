@@ -1,5 +1,6 @@
 body.modal-open {
-  overflow: hidden;
+  // overflow: hidden;
+  z-index: 5;
 }
 
 .backdrop {
@@ -7,11 +8,11 @@ body.modal-open {
   z-index: 10;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
   top: 0;
   left: 0;
   transition: opacity 300ms var(--cubic-bezier);
-  overflow-y: auto;
+  overflow-y: scroll;
 
   &.visually-hidden {
     opacity: 0;
