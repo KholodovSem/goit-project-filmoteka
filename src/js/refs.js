@@ -1,4 +1,5 @@
 export const refs = {
+  listElement: document.querySelector('.films__gallery-item'),
   movieContainer: document.querySelector('.films__gallery'),
   backToTopBtn: document.querySelector('.back-to-top-btn'),
   openModalBtn: document.querySelector('.films__gallery'),
@@ -42,4 +43,5 @@ export const refs = {
   backdrop: document.querySelector('.developers__backdrop'),
   openFooterModal: document.querySelector('.footer__btn'),
   homePage: document.body,
+  
 };
