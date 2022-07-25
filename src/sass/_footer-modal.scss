@@ -54,6 +54,11 @@
 }
 
 .developers__title {
+  background-image: url(../images/mivina\ logo.png);
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background-repeat: no-repeat;
+  background-size: contain;
   text-align: center;
   padding: 15px 0;
   font-weight: 700;
@@ -112,8 +117,68 @@
   }
 }
 
-
 .no-scroll {
   overflow: hidden;
 }
 
+.wrap {
+  @media screen and(min-width: 1280px) {
+    position: relative;
+  }
+}
+
+.developer__info--sem {
+  @media screen and(min-width: 1280px) {
+    position: absolute;
+    top: 59px;
+    left: 366px;
+  }
+}
+
+.stepa {
+  @media screen and(min-width: 1280px) {
+    position: relative;
+  }
+}
+
+.developer__info--stepa {
+  @media screen and(min-width: 1280px) {
+    position: absolute;
+    top: 54px;
+    width: 100%;
+    left: 296px;
+  }
+}
+
+.artur {
+  @media screen and(min-width: 1280px) {
+    position: relative;
+  }
+}
+
+.developer__info--artur {
+  @media screen and(min-width: 1280px) {
+    position: absolute;
+    bottom: 79px;
+    width: 100%;
+    left: 296px;
+  }
+}
+
+.nikita {
+  @media screen and(min-width: 1280px) {
+    position: relative;
+  }
+}
+
+.developer__info--nikita {
+  @media screen and(min-width: 1280px) {
+    position: absolute;
+    top: 64px;
+    width: 100%;
+    left: 299px;
+  }
+}
+
+@media screen and(min-width: 1280px) {
+}
