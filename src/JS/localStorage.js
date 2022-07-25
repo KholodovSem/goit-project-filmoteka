@@ -26,3 +26,11 @@ export function currentPageLibrary(){
 export function currentPageHome(){
   localStorageAPI.save('CurrentPage', 'Home')
 }
+
+//
+const queueFilms = [];
+
+export function addNameFilmByQueue (element){
+  queueFilms.push(element.textContent);
+  localStorageAPI.save('QueueFilms',queueFilms);
+}

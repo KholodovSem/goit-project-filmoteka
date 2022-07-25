@@ -48,6 +48,8 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //? Навигационные ссылки хедера
 const homeLink = refs.navigation.homeLink;
 const libraryLink = refs.navigation.libraryLink;
+const btnQueueAdd = document.querySelector('.js-queue-add');
+console.log(btnQueueAdd);
 
 //*Проверка доступа
 (function () {
