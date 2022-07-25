@@ -248,6 +248,7 @@ function onCloseBackdrop(e) {
 }
 
 //
+let nekit = 'nekit';
 
 const queueFilms = [];
 const watchedFilms = [];
