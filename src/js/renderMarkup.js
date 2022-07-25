@@ -1,6 +1,8 @@
 import { refs } from './refs';
+import axios from 'axios';
 import { genres } from './genresObject';
 import { FetchFilms } from './FetchFilmsClass';
+import { data } from 'jquery';
 const { MovieTrendContainer } = refs;
 
 export function renderMarkup(results, watched, queue) {
@@ -92,8 +94,28 @@ function missingImage(film) {
 // }
 
 // Функция добавления фильма в карточку фильма
-export function renderMarkupCard(data) {
-  refs.cardModalMovie.innerHTML = '';
+
+
+// function foo (x){
+//   return x
+// }
+// function getVideo (id){
+//   return axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=9c53a08914e6b4a1350a474be4bdfe14&language=en-US`)
+// }
+
+// export function renderVideo (results) {
+//   refs.cardModalMovie.innerHTML = ""
+//  markup = `<div class="modal__img-wrap">
+//  <a href="https://www.youtube.com/watch?v=${ results.data.results[0].key
+//  }" class="modal__img-link">`
+//  return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
+// }
+
+
+export function renderMarkupCard(results) {
+
+  refs.cardModalMovie.innerHTML = ""
+  
   // const {
   //   poster_path,
   //   title,
@@ -106,81 +128,80 @@ export function renderMarkupCard(data) {
   //   id,
   // } = data;
 
-  const markup = results.data.results
-    .map(film => {
-      if (film.known_for) {
-        return;
-      }
 
-      return `
-<div class="modal__img-wrap">
-      <a href="https://www.youtube.com/watch?v=BmllggGO4pM" class="modal__img-link">
-  ${missingImage(film)}
+
+
+
+ const markup =  `<div class="modal__img-wrap">
+  <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2${results.data.poster_path}"   alt="${results.data.title}"
+      class="modal__img"
+       loading="lazy" 
+/>
         <div class="modal__play-bacground">
           <span class="modal__svg-background"></span>
         </div>
         </a>
 </div>
       <div class="modal__info-container">
-        <h2 class="modal__title-film">${nameTitleGenerate(film)}</h2>
+        <h2 class="modal__title-film">${results.data.title}</h2>
         <table class="modal__info">
           <tr>
             <td class="modal__info-category">Vote/Votes</td>
             <td class="modal__info-value">
-              <span class="modal__vote">${film.vote_average}</span
+              <span class="modal__vote">${results.data.vote_average}</span
               ><span class="modal__slash">/</span
-              ><span class="modal__votes">${film.vote_count}</span>
+              ><span class="modal__votes">${results.data.vote_count}</span>
             </td>
           </tr>
           <tr>
             <td class="modal__info-category">Popularity</td>
-            <td class="modal__info-value">${film.popularity}</td>
+            <td class="modal__info-value">${results.data.popularity}</td>
           </tr>
           <tr>
             <td class="modal__info-category">Original Title</td>
-            <td class="modal__info-value">${film.original_title}</td>
+            <td class="modal__info-value">${results.data.original_title}</td>
           </tr>
           <tr>
             <td class="modal__info-category">Genre</td>
-            <td class="modal__info-value">${film.genres
+            <td class="modal__info-value">${results.data.genres
               .map(item => item.name)
               .join(', ')}</td>
           </tr>
         </table>
         <p class="modal__title-about">About</p>
         <p class="modal__article-about-movie">
-          ${film.overview}
+          ${results.data.overview}
         </p>
         <div class="modal__button-wrap">
           <div class="modal__button-container">
             <button type="submit" class="modal__button js-watched-add" id="js-watched-add" data-id=${
-              film.id
+              results.data.id
             }>
               ADD TO WATCHED
             </button>
             <button type="button" class="modal__button js-watched-delete visually-hidden" id="js-watched-del" data-id=${
-              film.id
+              results.data.id
             }>
               DELETE FROM WATCHED
             </button>
           </div>
           <div class="modal__button-container">
           <button type="submit" class="modal__button js-queue-add" id="js-queue-add" data-id=${
-            film.id
+            results.data.id
           }>
               ADD TO QUEUE
             </button>
             <button type="submit" class="modal__button js-queue-delete visually-hidden" id="js-queue-del" data-id=${
-              film.id
+              results.data.id
             }>
               DELETE FROM  QUEUE
             </button>
           </div>
         </div>
-      </div>`;
-    })
-    .join('');
-  refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
+      </div>`
+    
+    
+  return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
 }
 
 // Функция добавления фильма в карточку фильма
