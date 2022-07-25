@@ -28,9 +28,19 @@ export function currentPageHome(){
 }
 
 //
-const queueFilms = [];
+const queueFilms = new Set();
+const watchedFilms = new Set();
 
 export function addNameFilmByQueue (element){
-  queueFilms.push(element.textContent);
+  let savedFilm;
+  savedFilm = element.textContent.toString();
+  console.log(savedFilm);
+  queueFilms.add(savedFilm);
+  console.log(queueFilms);
   localStorageAPI.save('QueueFilms',queueFilms);
+}
+
+export function addNameFilmByWatched (element){
+  watchedFilms.add(element.textContent);
+  localStorageAPI.save('WatchedFilms',watchedFilms);
 }

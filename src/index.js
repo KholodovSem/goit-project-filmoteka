@@ -21,7 +21,13 @@ import {
   userRegistration,
   userAuthorization,
 } from './JS/registrationAndAuthorization';
-import { localStorageAPI, currentPageLibrary, currentPageHome, addNameFilmByQueue } from './JS/localStorage';
+import {
+  localStorageAPI,
+  currentPageLibrary,
+  currentPageHome,
+  addNameFilmByQueue,
+  addNameFilmByWatched,
+} from './JS/localStorage';
 import Notiflix from 'notiflix';
 import { data, event } from 'jquery';
 import axios from 'axios';
@@ -259,12 +265,14 @@ refs.movieContainer.addEventListener('click', event => {
   console.log(id);
 
   fetchFilms.fetchFilmsDetails(id).then(results => {
-    console.log(results);
     renderMarkupCard(results);
     modalCardRef.addEventListener('click', (e) => {
-      console.log('PIDARASI');
-      if(e.target.className.includes(".js-queue-add"){
+      if(e.target.getAttribute('id') === 'js-queue-add'){
         addNameFilmByQueue(nameFilm);
+      }
+
+      if(e.target.getAttribute('id') === 'js-watched-add'){
+        addNameFilmByWatched(nameFilm);
       }
     })
   }
