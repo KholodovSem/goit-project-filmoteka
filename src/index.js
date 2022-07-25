@@ -21,7 +21,7 @@ import {
   userRegistration,
   userAuthorization,
 } from './JS/registrationAndAuthorization';
-import { localStorageAPI, currentPageLibrary, currentPageHome } from './JS/localStorage';
+import { localStorageAPI, currentPageLibrary, currentPageHome, addNameFilmByQueue } from './JS/localStorage';
 import Notiflix from 'notiflix';
 import { data, event } from 'jquery';
 import axios from 'axios';
@@ -50,11 +50,11 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //? Навигационные ссылки хедера
 const homeLink = refs.navigation.homeLink;
 const libraryLink = refs.navigation.libraryLink;
-const btnQueueAdd = document.querySelector('.js-queue-add');
-console.log(btnQueueAdd);
+const modalCardRef = document.querySelector('.modal__container');
+console.log(modalCardRef);
 
 //*Проверка доступа
-(function () {
+(function() {
   setInterval(() => {
     const checkPremission = localStorageAPI.load('Permission');
     if (+checkPremission === 1) {
@@ -75,7 +75,7 @@ window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
-if(localStorageAPI.load('CurrentPage') === 'Library'){
+if (localStorageAPI.load('CurrentPage') === 'Library') {
   return;
 }
 fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
@@ -125,10 +125,10 @@ refs.pagination.addEventListener('click', paginationTrending);
 userAccBtn.addEventListener('click', event => openRegModal(event, regModal));
 //Закрыте модального окна
 topCloseRegModalBtn.addEventListener('click', event =>
-  closeRegModal(event, regModal)
+  closeRegModal(event, regModal),
 );
 bottomCloseRegModalBtn.addEventListener('click', event =>
-  closeRegModal(event, regModal)
+  closeRegModal(event, regModal),
 );
 //Переключение между табами модального окна
 newAccTab.addEventListener('click', e => {
@@ -190,7 +190,7 @@ function searchFilm(event) {
     fetchFilms.fetchFilmsSearch(query).then(results => {
       if (results.data.results.length === 0) {
         return Notiflix.Notify.failure(
-          'Sorry, there aren`t films with that name. Try again'
+          'Sorry, there aren`t films with that name. Try again',
         );
       }
 
@@ -249,19 +249,26 @@ function onCloseBackdrop(e) {
   }
 }
 
-
-
-
-
+//
+const nameFilm = document.querySelector('.modal__title-film')
 // renderMarkupCard()
-refs.movieContainer.addEventListener("click", event => {
+refs.movieContainer.addEventListener('click', event => {
 
- 
-  
-  const id = event.target.getAttribute("data-id");
+
+  const id = event.target.getAttribute('data-id');
   console.log(id);
- 
-  fetchFilms.fetchFilmsDetails(id).then(results => {console.log(results); renderMarkupCard(results)})
 
-})
+  fetchFilms.fetchFilmsDetails(id).then(results => {
+    console.log(results);
+    renderMarkupCard(results);
+    modalCardRef.addEventListener('click', (e) => {
+      console.log('PIDARASI');
+      if(e.target.className.includes(".js-queue-add"){
+        addNameFilmByQueue(nameFilm);
+      }
+    })
+  }
+)
+
+});
 
