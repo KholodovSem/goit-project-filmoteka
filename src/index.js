@@ -251,10 +251,7 @@ function onCloseBackdrop(e) {
 }
 
 //
-console.log(Boolean(body.classList.contains('.no-scroll')));
-if( body.classList.contains('no-scroll')){
-  watchedFilms()
-}
+
 
 
 const queueFilms = [];
@@ -270,13 +267,13 @@ const watchedFilms = [];
 
 })()
 
-console.log(localStorageAPI.load("Permission"));
+
 // renderMarkupCard()
 refs.movieContainer.addEventListener('click', event => {
 
 
   const id = event.target.getAttribute('data-id');
-  console.log(id);
+
 
   fetchFilms.fetchFilmsDetails(id).then(async results => {
     await renderMarkupCard(results);
