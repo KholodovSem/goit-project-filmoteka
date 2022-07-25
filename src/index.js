@@ -1,6 +1,6 @@
 //Импорты
 import { FetchFilms } from './js/FetchFilmsClass';
-import { renderMarkup } from './js/renderMarkup';
+import { renderMarkup, renderMarkupCard, renderVideo } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
 import {
@@ -23,6 +23,8 @@ import {
 } from './JS/registrationAndAuthorization';
 import { localStorageAPI, currentPageLibrary, currentPageHome } from './JS/localStorage';
 import Notiflix from 'notiflix';
+import { data, event } from 'jquery';
+import axios from 'axios';
 
 
 //! Переменные
@@ -244,4 +246,20 @@ function onCloseBackdrop(e) {
     backdrop.classList.add('is-hidden');
   }
 }
+
+
+
+
+
+// renderMarkupCard()
+refs.movieContainer.addEventListener("click", event => {
+
+ 
+  
+  const id = event.target.getAttribute("data-id");
+  console.log(id);
+ 
+  fetchFilms.fetchFilmsDetails(id).then(results => {console.log(results); renderMarkupCard(results)})
+
+})
 
