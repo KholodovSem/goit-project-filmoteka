@@ -177,7 +177,10 @@ export function renderMarkupCard(results) {
         </div>
       </div>`;
 
-  return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
+
+      
+    
+      return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
 }
 
 // Функция добавления фильма в карточку фильма

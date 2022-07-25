@@ -224,7 +224,10 @@ function onModalOpen() {
   backToTopBtn.classList.add('is-hidden');
   modalWindow.classList.remove('is-hidden');
   backdrop.classList.remove('is-hidden');
+ 
 }
+
+
 
 document.addEventListener('keydown', onModalClose);
 backdrop.addEventListener('click', onCloseBackdrop);
@@ -248,11 +251,26 @@ function onCloseBackdrop(e) {
 }
 
 //
-let nekit = 'nekit';
+console.log(Boolean(body.classList.contains('.no-scroll')));
+if( body.classList.contains('no-scroll')){
+  watchedFilms()
+}
+
 
 const queueFilms = [];
 const watchedFilms = [];
 
+(function checkLocalStorage (){
+ if(localStorageAPI.load("WatchedFilms")){
+  watchedFilms.push(...localStorageAPI.load("WatchedFilms"))
+ }
+ if(localStorageAPI.load("QueueFilms")){
+  queueFilms.push(...localStorageAPI.load("QueueFilms"))
+ }
+
+})()
+
+console.log(localStorageAPI.load("Permission"));
 // renderMarkupCard()
 refs.movieContainer.addEventListener('click', event => {
 
@@ -262,11 +280,35 @@ refs.movieContainer.addEventListener('click', event => {
 
   fetchFilms.fetchFilmsDetails(id).then(async results => {
     await renderMarkupCard(results);
+  
     const modalCardRef = document.querySelector('.kennie-west');
     const nameFilm = document.querySelector('.modal__title-film');
-      //
+     
+      function checkButtons (){
+        
+        if(localStorageAPI.load("Permission") === "0" || localStorageAPI.load("Permission") ===  undefined ){
+          const btnQueue = document.querySelector("#js-queue-add");
+          const btnWatched = document.querySelector("#js-watched-add");
+          btnQueue.setAttribute("disabled", 1);
+          btnWatched.setAttribute("disabled", 1)
+        }
 
-      //
+        if (queueFilms.includes(nameFilm.textContent)){
+         
+          const btn = document.querySelector("#js-queue-add");
+          btn.textContent= 'Remove from queue';
+          
+        }
+        if (watchedFilms.includes(nameFilm.textContent)){
+         
+          const btn = document.querySelector("#js-watched-add");
+          btn.textContent= 'Remove from watched';
+          
+        }
+
+      }
+      checkButtons()
+      
       function addNameFilmByQueue (element){
         if(queueFilms.includes(element.textContent)){
           return;
@@ -276,6 +318,9 @@ refs.movieContainer.addEventListener('click', event => {
       }
 
       function addNameFilmByQueueOrWatchedListener (event){
+        
+       
+
         if(event.target.getAttribute('id') === 'js-queue-add' && event.target.textContent === 'ADD TO QUEUE'){
           event.target.textContent = 'Remove from queue';
           addNameFilmByQueue(nameFilm);
