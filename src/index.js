@@ -62,6 +62,7 @@ const watchedFilms = [];
     if (+checkPremission === 1) {
       homeLink.classList.remove('disabled');
       libraryLink.classList.remove('disabled');
+      userAccBtn.style.display = 'none';
     }
   }, 1000);
 })();
@@ -89,14 +90,13 @@ function watchedListenerFoo() {
 
 (function checkPage() {
   if (localStorageAPI.load('CurrentPage') === 'Library') {
-    setTimeout(() => {
-      watchedListenerFoo();
-    }, 0);
-
-    const btnWatchedHeader = document.querySelector('[data-btnWatchedLibrary]');
-    const btnQueueHeader = document.querySelector('[data-btnQueueLibrary]');
-    btnWatchedHeader.style.backgroundColor = '#ff6b08';
-    btnWatchedHeader.style.border = 'none';
+    setTimeout(()=>{ watchedListenerFoo ()}, 0)
+    const paginate= document.querySelector(".tui-pagination ")
+    paginate.style.display = "none";
+    const btnWatchedHeader = document.querySelector("[data-btnWatchedLibrary]")
+    const btnQueueHeader = document.querySelector("[data-btnQueueLibrary]");
+    btnWatchedHeader.style.backgroundColor = "#ff6b08";
+    btnWatchedHeader.style.border = "none";
 
     btnWatchedHeader.addEventListener('click', watchedListenerFoo);
 
