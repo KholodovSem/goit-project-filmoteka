@@ -4,8 +4,10 @@ import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import { FetchFilms } from './FetchFilmsClass';
 import { renderMarkup } from './renderMarkup';
+import { refs } from './refs';
+import { fetchFilms } from '../index';
 
-export const fetchFilms = new FetchFilms();
+
 export const options = {
   totalItems: 500,
   itemsPerPage: 5,
@@ -33,7 +35,7 @@ export const options = {
   },
 };
 
-export const pagination1 = new Pagination('pagination1', options);
+ const pagination1 = new Pagination('pagination1', options);
 
 export function paginationTrending(event) {
   // JsLoadingOverlay.show(loadingSpinnerConfig);
@@ -81,7 +83,10 @@ export function paginationTrending(event) {
 }
 
 export function paginationSearch(event, query) {
-  // JsLoadingOverlay.show(loadingSpinnerConfig);
+ 
+  
+
+
   if (event.target.textContent === 'prev') {
     fetchFilms.decrementPage();
     scrollTo();
@@ -97,7 +102,9 @@ export function paginationSearch(event, query) {
       .then(results => renderMarkup(results));
   }
   if (event.target.textContent === 'next') {
+    console.log(fetchFilms.page, "DO");
     fetchFilms.incrementPage();
+    console.log(fetchFilms.page, "POSlE");
     scrollTo();
     return fetchFilms
       .fetchFilmsSearch(query)
@@ -125,4 +132,42 @@ export function paginationSearch(event, query) {
   return fetchFilms
     .fetchFilmsSearch(query)
     .then(results => renderMarkup(results));
+}
+
+
+export function searchFilm(event) {
+  event.preventDefault();
+  fetchFilms.page = 1;
+
+
+  pagination1.movePageTo(1)
+
+  query = refs.input.value;
+  if (query) {
+    fetchFilms.fetchFilmsSearch(query).then(results => {
+      if (results.data.results.length === 0) {
+        return Notiflix.Notify.failure(
+          'Sorry, there aren`t films with that name. Try again'
+        );
+      }
+
+      options.totalItems = Number(results.data.total_pages) * 5 ;
+     
+    console.log(options.totalItems);
+      if (options.totalItems > 500) {
+        options.totalItems = 500;
+      }
+      JsLoadingOverlay.hide();
+      const pagination1 = new Pagination('pagination1', options);
+      return renderMarkup(results);
+    });
+  }
+  console.log("LISTETERS")
+  refs.pagination.removeEventListener('click', paginationTrending);
+  refs.pagination.removeEventListener('click', paginationCallback);
+  refs.pagination.addEventListener('click', paginationCallback);
+}
+
+export function paginationCallback(event) {
+  paginationSearch(event, query);
 }
