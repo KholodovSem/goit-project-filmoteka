@@ -255,11 +255,17 @@ const watchedFilms = [];
 })();
 
 // renderMarkupCard()
-refs.movieContainer.addEventListener('click', event => {
+
+refs.movieContainer.addEventListener('click', async event => {
   const id = event.target.getAttribute('data-id');
 
+  const { results } = await fetchFilms.fetchFilmsVideo(id);
+
+  const videoId = results[0].key;
+
   fetchFilms.fetchFilmsDetails(id).then(async results => {
-    await renderMarkupCard(results);
+    await renderMarkupCard(results, videoId);
+
 
     const modalCardRef = document.querySelector('.kennie-west');
     const nameFilm = document.querySelector('.modal__title-film');

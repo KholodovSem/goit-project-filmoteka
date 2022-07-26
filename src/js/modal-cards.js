@@ -28,7 +28,10 @@ function closeModal() {
   document.removeEventListener('keydown', closeEsc);
   body.classList.remove('modal-open');
   refs.cardModalMovie.innerHTML = '';
-  modalCardRef.removeEventListener('click', addNameFilmByQueueOrWatchedListener)
+  modalCardRef.removeEventListener(
+    'click',
+    addNameFilmByQueueOrWatchedListener
+  );
 }
 
 function closeEsc(evt) {
