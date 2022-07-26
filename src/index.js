@@ -59,6 +59,7 @@ const watchedFilms = [];
     if (+checkPremission === 1) {
       homeLink.classList.remove('disabled');
       libraryLink.classList.remove('disabled');
+      userAccBtn.style.display = 'none';
     }
   }, 1000);
 })();
