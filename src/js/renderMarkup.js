@@ -1,6 +1,5 @@
 import { refs } from './refs';
 import 'js-loading-overlay';
-import { loadingSpinnerConfig } from './spinner-config';
 import { genres } from './genresObject';
 
 export function renderMarkup(results, watched, queue) {
@@ -44,8 +43,8 @@ ${missingImage(film)}
 
  export function renderMarkupLibrary(results, watched, queue) {
  console.log("renderMarkupLibrary");
- 
-  const markup = 
+
+  const markup =
     // .map(film => {
     //   if (film.known_for) {
     //     return;
@@ -72,8 +71,8 @@ ${missingImage(results.data.results[0])}
     </div>
 </a>
 </li>`;
-    
-  
+
+
 
   refs.movieContainer.insertAdjacentHTML('beforeend', markup);
 }
