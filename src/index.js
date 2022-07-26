@@ -2,7 +2,11 @@
 import 'js-loading-overlay';
 import { loadingSpinnerConfig } from './JS/spinner-config';
 import { FetchFilms } from './js/FetchFilmsClass';
-import { renderMarkup, renderMarkupCard, renderMarkupLibrary } from './js/renderMarkup';
+import {
+  renderMarkup,
+  renderMarkupCard,
+  renderMarkupLibrary,
+} from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
 import './js/masiania';
@@ -51,7 +55,6 @@ const libraryLink = refs.navigation.libraryLink;
 const queueFilms = [];
 const watchedFilms = [];
 
-
 //*Проверка доступа
 (function () {
   setInterval(() => {
@@ -65,7 +68,7 @@ const watchedFilms = [];
 })();
 
 //Рендеринг для главной страницы и для библиотеки
-libraryLink.addEventListener('click',currentPageLibrary);
+libraryLink.addEventListener('click', currentPageLibrary);
 homeLink.addEventListener('click', currentPageHome);
 
 //*Запрос и рендеринг популярных фильмов
@@ -76,14 +79,16 @@ refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
 
-function watchedListenerFoo ()  {
+function watchedListenerFoo() {
   refs.movieContainer.innerHTML = '';
   watchedFilms.forEach(film =>
-    fetchFilms.fetchFilmsSearch(film).then(results => renderMarkupLibrary(results) )
-  )
+    fetchFilms
+      .fetchFilmsSearch(film)
+      .then(results => renderMarkupLibrary(results))
+  );
 }
 
-(function checkPage (){
+(function checkPage() {
   if (localStorageAPI.load('CurrentPage') === 'Library') {
     setTimeout(()=>{ watchedListenerFoo ()}, 0)
     const paginate= document.querySelector(".tui-pagination ")
@@ -93,20 +98,21 @@ function watchedListenerFoo ()  {
     btnWatchedHeader.style.backgroundColor = "#ff6b08";
     btnWatchedHeader.style.border = "none";
 
+    btnWatchedHeader.addEventListener('click', watchedListenerFoo);
 
-    btnWatchedHeader.addEventListener("click", watchedListenerFoo)
-
-    btnQueueHeader.addEventListener("click", (event) => {
-      btnWatchedHeader.removeAttribute("style")
+    btnQueueHeader.addEventListener('click', event => {
+      btnWatchedHeader.removeAttribute('style');
       refs.movieContainer.innerHTML = '';
       queueFilms.forEach(film =>
         fetchFilms.fetchFilmsSearch(film).then(results => {
-          return renderMarkupLibrary(results)} ))
-    })
+          return renderMarkupLibrary(results);
+        })
+      );
+    });
     return;
   }
-  fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results))})();
-
+  fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+})();
 
 refs.pagination.addEventListener('click', event => {
   JsLoadingOverlay.show(loadingSpinnerConfig);
