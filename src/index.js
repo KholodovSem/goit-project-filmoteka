@@ -74,40 +74,40 @@ window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
-  
+
 function watchedListenerFoo ()  {
 refs.movieContainer.innerHTML = '';
- watchedFilms.forEach(film => 
-   fetchFilms.fetchFilmsSearch(film).then(results => renderMarkupLibrary(results) ) 
+ watchedFilms.forEach(film =>
+   fetchFilms.fetchFilmsSearch(film).then(results => renderMarkupLibrary(results) )
    )
 }
 
 (function checkPage (){
-if (localStorageAPI.load('CurrentPage') === 'Library') {
+if (localStorageAPI.load('CurrentPage' === 'Library')) {
 setTimeout(()=>{ watchedListenerFoo ()}, 0)
 
   const btnWatchedHeader = document.querySelector("[data-btnWatchedLibrary]")
   const btnQueueHeader = document.querySelector("[data-btnQueueLibrary]");
   btnWatchedHeader.style.backgroundColor = "#ff6b08";
   btnWatchedHeader.style.border = "none";
-  
 
-   btnWatchedHeader.addEventListener("click", watchedListenerFoo) 
-  
+
+   btnWatchedHeader.addEventListener("click", watchedListenerFoo)
+
   btnQueueHeader.addEventListener("click", (event) => {
     btnWatchedHeader.removeAttribute("style")
     refs.movieContainer.innerHTML = '';
-    queueFilms.forEach(film => 
+    queueFilms.forEach(film =>
        fetchFilms.fetchFilmsSearch(film).then(results => {
-        return renderMarkupLibrary(results)} )) 
-  }) 
+        return renderMarkupLibrary(results)} ))
+  })
   return;
 }
 fetchFilms.fetchFilmsTrending().then(results => {
   JsLoadingOverlay.show(loadingSpinnerConfig);
   renderMarkup(results);
   JsLoadingOverlay.hide();
-});
+})})();
 
 
 refs.pagination.addEventListener('click', event => {
