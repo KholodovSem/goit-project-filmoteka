@@ -41,8 +41,8 @@ ${missingImage(film)}
   refs.movieContainer.insertAdjacentHTML('beforeend', markup);
 }
 
- export function renderMarkupLibrary(results, watched, queue) {
- console.log("renderMarkupLibrary");
+export function renderMarkupLibrary(results, watched, queue) {
+  console.log('renderMarkupLibrary');
 
   const markup =
     // .map(film => {
@@ -50,29 +50,35 @@ ${missingImage(film)}
     //     return;
     //   }
 
-       `
-<li class='gallery-items films__gallery-item' data-id='${results.data.results[0].id}'>
+    `
+<li class='gallery-items films__gallery-item' data-id='${
+      results.data.results[0].id
+    }'>
 <a href='#!' class='list-card__link'>
 <!-- постер -->
 ${missingImage(results.data.results[0])}
 
 <!-- обгортка інформації під постером -->
 <div class='moviе-stats'>
-    <h2 class='moviе-stats__title' data-id='${results.data.results[0].id}' data-watched='${watched}'
-         data-queue='${queue}'>${nameTitleGenerate(results.data.results[0])}</h2>
+    <h2 class='moviе-stats__title' data-id='${
+      results.data.results[0].id
+    }' data-watched='${watched}'
+         data-queue='${queue}'>${nameTitleGenerate(
+      results.data.results[0]
+    )}</h2>
     <div class='moviе-stats__info' >
 <!-- список жанрів -->
 <p class='moviе-genre'>${genreGenerate(results.data.results[0])}</p>
 <!-- дата виходу та рейтинг -->
-<p class='moviе-year'>|  ${new Date(releaseDateGenerate(results.data.results[0])).getFullYear()}</p>
+<p class='moviе-year'>|  ${new Date(
+      releaseDateGenerate(results.data.results[0])
+    ).getFullYear()}</p>
 <!-- рейтинг -->
 <p class='moviе-vote'>${results.data.results[0].vote_average.toFixed(1)}</p>
 </div>
     </div>
 </a>
 </li>`;
-
-
 
   refs.movieContainer.insertAdjacentHTML('beforeend', markup);
 }
@@ -160,7 +166,7 @@ export function renderMarkupCard(results, videoId) {
   //   id,
   // } = data;
 
-  const markup = `<div class='modal__img-wrap' ><iframe width="240" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  const markup = `<div class='modal__img-wrap' ><iframe width="100%" height="340" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 </div>
       <div class='modal__info-container kennie-west'>
