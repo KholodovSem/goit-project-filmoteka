@@ -1,5 +1,5 @@
 import { refs } from '../js/refs';
-import { addNameFilmByQueueOrWatchedListener } from './localStorage';
+import { addNameFilmByQueueOrWatchedListener } from '../JS/localStorage';
 const { movieContainer, closeModalBtn, modal, body } = refs;
 
 const modalCardRef = document.querySelector('.modal__container');
