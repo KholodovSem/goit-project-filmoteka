@@ -3,11 +3,8 @@ import { FetchFilms } from './js/FetchFilmsClass';
 import { renderMarkup, renderMarkupCard, renderMarkupLibrary } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
-import {
-  options,
-  paginationTrending,
-  paginationSearch,
-} from './js/pagination';
+import './js/masiania';
+import { options, paginationTrending, paginationSearch } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import './js/modal-cards.js';
 import {
@@ -22,7 +19,7 @@ import {
 import {
   localStorageAPI,
   currentPageLibrary,
-  currentPageHome
+  currentPageHome,
 } from './JS/localStorage';
 import Notiflix from 'notiflix';
 
@@ -49,13 +46,11 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //? Навигационные ссылки хедера
 const homeLink = refs.navigation.homeLink;
 const libraryLink = refs.navigation.libraryLink;
-
-
 const queueFilms = [];
 const watchedFilms = [];
 
 //*Проверка доступа
-(function() {
+(function () {
   setInterval(() => {
     const checkPremission = localStorageAPI.load('Permission');
     if (+checkPremission === 1) {
@@ -147,16 +142,15 @@ refs.pagination.addEventListener('click', event => {
 
 refs.pagination.addEventListener('click', paginationTrending);
 
-
 //*Модальное окно регистрации
 // Открытие модального окна
 userAccBtn.addEventListener('click', event => openRegModal(event, regModal));
 //Закрыте модального окна
 topCloseRegModalBtn.addEventListener('click', event =>
-  closeRegModal(event, regModal),
+  closeRegModal(event, regModal)
 );
 bottomCloseRegModalBtn.addEventListener('click', event =>
-  closeRegModal(event, regModal),
+  closeRegModal(event, regModal)
 );
 //Переключение между табами модального окна
 newAccTab.addEventListener('click', e => {
@@ -218,7 +212,7 @@ function searchFilm(event) {
     fetchFilms.fetchFilmsSearch(query).then(results => {
       if (results.data.results.length === 0) {
         return Notiflix.Notify.failure(
-          'Sorry, there aren`t films with that name. Try again',
+          'Sorry, there aren`t films with that name. Try again'
         );
       }
 
@@ -233,7 +227,6 @@ function searchFilm(event) {
   refs.pagination.removeEventListener('click', paginationCallback);
   refs.pagination.addEventListener('click', paginationCallback);
 }
-
 
 // Modal footer
 
@@ -253,10 +246,7 @@ function onModalOpen() {
   backToTopBtn.classList.add('is-hidden');
   modalWindow.classList.remove('is-hidden');
   backdrop.classList.remove('is-hidden');
- 
 }
-
-
 
 document.addEventListener('keydown', onModalClose);
 backdrop.addEventListener('click', onCloseBackdrop);
@@ -281,115 +271,115 @@ function onCloseBackdrop(e) {
 
 //
 
-
-
-
-(function checkLocalStorage (){
- if(localStorageAPI.load("WatchedFilms")){
-  watchedFilms.push(...localStorageAPI.load("WatchedFilms"))
- }
- if(localStorageAPI.load("QueueFilms")){
-  queueFilms.push(...localStorageAPI.load("QueueFilms"))
- }
-
-})()
-
+(function checkLocalStorage() {
+  if (localStorageAPI.load('WatchedFilms')) {
+    watchedFilms.push(...localStorageAPI.load('WatchedFilms'));
+  }
+  if (localStorageAPI.load('QueueFilms')) {
+    queueFilms.push(...localStorageAPI.load('QueueFilms'));
+  }
+})();
 
 // renderMarkupCard()
-refs.movieContainer.addEventListener('click', event => {
 
-
+refs.movieContainer.addEventListener('click', async event => {
   const id = event.target.getAttribute('data-id');
 
+  const { results } = await fetchFilms.fetchFilmsVideo(id);
+
+  const videoId = results[0].key;
 
   fetchFilms.fetchFilmsDetails(id).then(async results => {
-    await renderMarkupCard(results);
-  
+    await renderMarkupCard(results, videoId);
+
+
     const modalCardRef = document.querySelector('.kennie-west');
     const nameFilm = document.querySelector('.modal__title-film');
-     
-      function checkButtons (){
-        
-        if(localStorageAPI.load("Permission") === "0" || localStorageAPI.load("Permission") ===  undefined ){
-          const btnQueue = document.querySelector("#js-queue-add");
-          const btnWatched = document.querySelector("#js-watched-add");
-          btnQueue.setAttribute("disabled", 1);
-          btnWatched.setAttribute("disabled", 1)
-        }
 
-        if (queueFilms.includes(nameFilm.textContent)){
-         
-          const btn = document.querySelector("#js-queue-add");
-          btn.textContent= 'Remove from queue';
-          
-        }
-        if (watchedFilms.includes(nameFilm.textContent)){
-         
-          const btn = document.querySelector("#js-watched-add");
-          btn.textContent= 'Remove from watched';
-          
-        }
-
-      }
-      checkButtons()
-      
-      function addNameFilmByQueue (element){
-        if(queueFilms.includes(element.textContent)){
-          return;
-        }
-        queueFilms.push(element.textContent);
-        localStorageAPI.save('QueueFilms',queueFilms);
+    function checkButtons() {
+      if (
+        localStorageAPI.load('Permission') === '0' ||
+        localStorageAPI.load('Permission') === undefined
+      ) {
+        const btnQueue = document.querySelector('#js-queue-add');
+        const btnWatched = document.querySelector('#js-watched-add');
+        btnQueue.setAttribute('disabled', 1);
+        btnWatched.setAttribute('disabled', 1);
       }
 
-      function addNameFilmByQueueOrWatchedListener (event){
-        
-       
-
-        if(event.target.getAttribute('id') === 'js-queue-add' && event.target.textContent === 'ADD TO QUEUE'){
-          event.target.textContent = 'Remove from queue';
-          addNameFilmByQueue(nameFilm);
-          return;
-        }
-
-
-        if(event.target.getAttribute('id') === 'js-queue-add' && event.target.textContent === 'Remove from queue'){
-          event.target.textContent = "ADD TO QUEUE";
-          const indexToDelete = queueFilms.findIndex((e) => e === nameFilm.textContent);
-          queueFilms.splice(indexToDelete, 1);
-          localStorageAPI.save('QueueFilms',queueFilms);
-        }
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        if(event.target.getAttribute('id') === 'js-watched-add' && event.target.textContent === 'ADD TO WATCHED'){
-          event.target.textContent = 'Remove from watched';
-          addNameFilmByWatched(nameFilm);
-          return;
-        }
-
-        if(event.target.getAttribute('id') === 'js-watched-add' && event.target.textContent === 'Remove from watched'){
-          event.target.textContent = "ADD TO WATCHED";
-          const indexToDelete = watchedFilms.findIndex((e) => e === nameFilm.textContent);
-          watchedFilms.splice(indexToDelete, 1);
-          localStorageAPI.save('WatchedFilms',watchedFilms);
-        }
+      if (queueFilms.includes(nameFilm.textContent)) {
+        const btn = document.querySelector('#js-queue-add');
+        btn.textContent = 'Remove from queue';
       }
-      //
-      function addNameFilmByWatched (element){
-        if(watchedFilms.includes(element.textContent)){
-          return;
-        }
-        watchedFilms.push(element.textContent);
-        localStorageAPI.save('WatchedFilms',watchedFilms);
+      if (watchedFilms.includes(nameFilm.textContent)) {
+        const btn = document.querySelector('#js-watched-add');
+        btn.textContent = 'Remove from watched';
       }
+    }
+    checkButtons();
+
+    function addNameFilmByQueue(element) {
+      if (queueFilms.includes(element.textContent)) {
+        return;
+      }
+      queueFilms.push(element.textContent);
+      localStorageAPI.save('QueueFilms', queueFilms);
+    }
+
+    function addNameFilmByQueueOrWatchedListener(event) {
+      if (
+        event.target.getAttribute('id') === 'js-queue-add' &&
+        event.target.textContent === 'ADD TO QUEUE'
+      ) {
+        event.target.textContent = 'Remove from queue';
+        addNameFilmByQueue(nameFilm);
+        return;
+      }
+
+      if (
+        event.target.getAttribute('id') === 'js-queue-add' &&
+        event.target.textContent === 'Remove from queue'
+      ) {
+        event.target.textContent = 'ADD TO QUEUE';
+        const indexToDelete = queueFilms.findIndex(
+          e => e === nameFilm.textContent
+        );
+        queueFilms.splice(indexToDelete, 1);
+        localStorageAPI.save('QueueFilms', queueFilms);
+      }
+
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      if (
+        event.target.getAttribute('id') === 'js-watched-add' &&
+        event.target.textContent === 'ADD TO WATCHED'
+      ) {
+        event.target.textContent = 'Remove from watched';
+        addNameFilmByWatched(nameFilm);
+        return;
+      }
+
+      if (
+        event.target.getAttribute('id') === 'js-watched-add' &&
+        event.target.textContent === 'Remove from watched'
+      ) {
+        event.target.textContent = 'ADD TO WATCHED';
+        const indexToDelete = watchedFilms.findIndex(
+          e => e === nameFilm.textContent
+        );
+        watchedFilms.splice(indexToDelete, 1);
+        localStorageAPI.save('WatchedFilms', watchedFilms);
+      }
+    }
+    //
+    function addNameFilmByWatched(element) {
+      if (watchedFilms.includes(element.textContent)) {
+        return;
+      }
+      watchedFilms.push(element.textContent);
+      localStorageAPI.save('WatchedFilms', watchedFilms);
+    }
 
     modalCardRef.addEventListener('click', addNameFilmByQueueOrWatchedListener);
-    },
-  );
-
+  });
 });
-
-
-/////////////////////////////////////////////////////////////////////////////Library
-
-
