@@ -123,7 +123,7 @@ export function renderMarkupCard(results, videoId) {
   //   id,
   // } = data;
 
-  const markup = `<div class='modal__img-wrap' ><iframe width="300" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  const markup = `<div class='modal__img-wrap' ><iframe width="240" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
       <div class='modal__info-container kennie-west'>
         <h2 class='modal__title-film'>${results.data.title}</h2>
