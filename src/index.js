@@ -2,9 +2,10 @@
 import 'js-loading-overlay';
 import { loadingSpinnerConfig } from './JS/spinner-config';
 import { FetchFilms } from './js/FetchFilmsClass';
-import { renderMarkup, renderMarkupCard } from './js/renderMarkup';
+import { renderMarkup, renderMarkupCard, renderMarkupLibrary } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
+import './js/masiania';
 import { options, paginationTrending, paginationSearch } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import './js/modal-cards.js';
@@ -47,6 +48,9 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //? Навигационные ссылки хедера
 const homeLink = refs.navigation.homeLink;
 const libraryLink = refs.navigation.libraryLink;
+const queueFilms = [];
+const watchedFilms = [];
+
 
 //*Проверка доступа
 (function () {
@@ -60,7 +64,7 @@ const libraryLink = refs.navigation.libraryLink;
 })();
 
 //Рендеринг для главной страницы и для библиотеки
-libraryLink.addEventListener('click', currentPageLibrary);
+libraryLink.addEventListener('click',currentPageLibrary);
 homeLink.addEventListener('click', currentPageHome);
 
 //*Запрос и рендеринг популярных фильмов
@@ -70,7 +74,33 @@ window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
+  
+function watchedListenerFoo ()  {
+refs.movieContainer.innerHTML = '';
+ watchedFilms.forEach(film => 
+   fetchFilms.fetchFilmsSearch(film).then(results => renderMarkupLibrary(results) ) 
+   )
+}
+
+(function checkPage (){
 if (localStorageAPI.load('CurrentPage') === 'Library') {
+setTimeout(()=>{ watchedListenerFoo ()}, 0)
+
+  const btnWatchedHeader = document.querySelector("[data-btnWatchedLibrary]")
+  const btnQueueHeader = document.querySelector("[data-btnQueueLibrary]");
+  btnWatchedHeader.style.backgroundColor = "#ff6b08";
+  btnWatchedHeader.style.border = "none";
+  
+
+   btnWatchedHeader.addEventListener("click", watchedListenerFoo) 
+  
+  btnQueueHeader.addEventListener("click", (event) => {
+    btnWatchedHeader.removeAttribute("style")
+    refs.movieContainer.innerHTML = '';
+    queueFilms.forEach(film => 
+       fetchFilms.fetchFilmsSearch(film).then(results => {
+        return renderMarkupLibrary(results)} )) 
+  }) 
   return;
 }
 fetchFilms.fetchFilmsTrending().then(results => {
@@ -78,6 +108,7 @@ fetchFilms.fetchFilmsTrending().then(results => {
   renderMarkup(results);
   JsLoadingOverlay.hide();
 });
+
 
 refs.pagination.addEventListener('click', event => {
   JsLoadingOverlay.show(loadingSpinnerConfig);
@@ -260,10 +291,6 @@ function onCloseBackdrop(e) {
 }
 
 //
-
-const queueFilms = [];
-const watchedFilms = [];
-
 (function checkLocalStorage() {
   if (localStorageAPI.load('WatchedFilms')) {
     watchedFilms.push(...localStorageAPI.load('WatchedFilms'));
@@ -273,11 +300,17 @@ const watchedFilms = [];
   }
 })();
 
-refs.movieContainer.addEventListener('click', event => {
+// renderMarkupCard()
+
+refs.movieContainer.addEventListener('click', async event => {
   const id = event.target.getAttribute('data-id');
 
+  const { results } = await fetchFilms.fetchFilmsVideo(id);
+
+  const videoId = results[0].key;
+
   fetchFilms.fetchFilmsDetails(id).then(async results => {
-    await renderMarkupCard(results);
+    await renderMarkupCard(results, videoId);
 
     const modalCardRef = document.querySelector('.kennie-west');
     const nameFilm = document.querySelector('.modal__title-film');
@@ -335,7 +368,6 @@ refs.movieContainer.addEventListener('click', event => {
       }
 
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
       if (
         event.target.getAttribute('id') === 'js-watched-add' &&
         event.target.textContent === 'ADD TO WATCHED'

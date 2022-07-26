@@ -60,6 +60,21 @@ export class FetchFilms {
       console.error(error);
     }
   }
+  // Запит для трейлеру про кінофільм (для модального вікна):
+  async fetchFilmsVideo(id) {
+    try {
+      const { data } = await axios.get(`${this.#BASE_URL}movie/${id}/videos`, {
+        params: {
+          api_key: this.#API_KEY,
+          language: 'en-US',
+        },
+      });
+
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   incrementPage() {
     this.page += 1;
