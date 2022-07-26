@@ -1,4 +1,6 @@
 import { refs } from './refs';
+import 'js-loading-overlay';
+import { loadingSpinnerConfig } from './spinner-config';
 import { genres } from './genresObject';
 
 export function renderMarkup(results, watched, queue) {
@@ -17,13 +19,17 @@ ${missingImage(film)}
 
 <!-- обгортка інформації під постером -->
 <div class='moviе-stats'>
-    <h2 class='moviе-stats__title' data-id='${film.id}' data-watched='${watched}'
+    <h2 class='moviе-stats__title' data-id='${
+      film.id
+    }' data-watched='${watched}'
          data-queue='${queue}'>${nameTitleGenerate(film)}</h2>
     <div class='moviе-stats__info' >
 <!-- список жанрів -->
 <p class='moviе-genre'>${genreGenerate(film)}</p>
 <!-- дата виходу та рейтинг -->
-<p class='moviе-year'>|  ${new Date(releaseDateGenerate(film)).getFullYear()}</p>
+<p class='moviе-year'>|  ${new Date(
+        releaseDateGenerate(film)
+      ).getFullYear()}</p>
 <!-- рейтинг -->
 <p class='moviе-vote'>${film.vote_average.toFixed(1)}</p>
 </div>
@@ -89,7 +95,6 @@ function missingImage(film) {
 
 // Функция добавления фильма в карточку фильма
 
-
 // function foo (x){
 //   return x
 // }
@@ -105,9 +110,7 @@ function missingImage(film) {
 //  return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
 // }
 
-
 export function renderMarkupCard(results) {
-
   refs.cardModalMovie.innerHTML = '';
 
   // const {
@@ -122,9 +125,10 @@ export function renderMarkupCard(results) {
   //   id,
   // } = data;
 
-
   const markup = `<div class='modal__img-wrap'>
-  <img src='https://www.themoviedb.org/t/p/w600_and_h900_bestv2${results.data.poster_path}'   alt='${results.data.title}'
+  <img src='https://www.themoviedb.org/t/p/w600_and_h900_bestv2${
+    results.data.poster_path
+  }'   alt='${results.data.title}'
       class='modal__img'
        loading='lazy'
 />
@@ -155,8 +159,8 @@ export function renderMarkupCard(results) {
           <tr>
             <td class='modal__info-category'>Genre</td>
             <td class='modal__info-value'>${results.data.genres
-    .map(item => item.name)
-    .join(', ')}</td>
+              .map(item => item.name)
+              .join(', ')}</td>
           </tr>
         </table>
         <p class='modal__title-about'>About</p>
@@ -165,22 +169,27 @@ export function renderMarkupCard(results) {
         </p>
         <div class='modal__button-wrap'>
           <div class='modal__button-container'>
-            <button type='submit' class='modal__button js-watched-add' id='js-watched-add' data-id='${results.data.id}'>ADD TO WATCHED</button>
-            <button type='button' class='modal__button js-watched-delete visually-hidden' id='js-watched-del' data-id='${results.data.id}'>
+            <button type='submit' class='modal__button js-watched-add' id='js-watched-add' data-id='${
+              results.data.id
+            }'>ADD TO WATCHED</button>
+            <button type='button' class='modal__button js-watched-delete visually-hidden' id='js-watched-del' data-id='${
+              results.data.id
+            }'>
               DELETE FROM WATCHED
             </button>
           </div>
           <div class='modal__button-container'>
-          <button type='submit' class='modal__button js-queue-add' id='js-queue-add' data-id='${results.data.id}'>ADD TO QUEUE</button>
-            <button type='submit' class='modal__button js-queue-delete visually-hidden' id='js-queue-del' data-id='${results.data.id}'>DELETE FROM  QUEUE</button>
+          <button type='submit' class='modal__button js-queue-add' id='js-queue-add' data-id='${
+            results.data.id
+          }'>ADD TO QUEUE</button>
+            <button type='submit' class='modal__button js-queue-delete visually-hidden' id='js-queue-del' data-id='${
+              results.data.id
+            }'>DELETE FROM  QUEUE</button>
           </div>
         </div>
       </div>`;
 
-
-      
-    
-      return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
+  return refs.cardModalMovie.insertAdjacentHTML('beforeend', markup);
 }
 
 // Функция добавления фильма в карточку фильма

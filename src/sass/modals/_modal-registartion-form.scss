@@ -18,18 +18,21 @@
 
 .modal-content {
   position: relative;
-
+  background-image: url(/src/images/deadpool-bgc.jpg);
   width: 80%;
   max-width: 500px;
-
+  background-position: bottom 41px right -80px;
+  background-size: contain;
+  background-repeat: no-repeat;
   margin: 15% auto;
   padding: 70px 40px 70px 40px;
 
   border: 1px solid #888;
   background-color: #fefefe;
 }
-
+// --------------------------
 .registration-form {
+  margin-right: 200px;
   margin-bottom: 40px;
 }
 
@@ -65,7 +68,9 @@
 
 .tab-change-btn {
   position: absolute;
-
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
   width: 50%;
   height: 50px;
 
@@ -76,6 +81,8 @@
 }
 
 .non-active {
+  color: gold;
+  background: linear-gradient(to bottom, #ff3300 0%, #212121 99%);
   transition: box-shadow 300ms linear 0ms;
 }
 
@@ -95,21 +102,21 @@
 }
 
 .tab-change-btn.active {
+  color: #212121;
   background-color: $white-color;
 }
 
 .cancel {
+  // background: #e63749;
+  background: linear-gradient(to bottom, #ff3300 0%, #ff6666 100%);
   bottom: 0;
   left: 0;
-
-  background-color: #aaa9a9;
 }
 
 .start {
   bottom: 0;
   right: 0;
-
-  background-color: #28ca97;
+  background: linear-gradient(to bottom, #99ff99 0%, #00cc00 77%);
 }
 
 .start,
