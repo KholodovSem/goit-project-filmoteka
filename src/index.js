@@ -6,7 +6,7 @@ import { renderMarkup, renderMarkupCard, renderMarkupLibrary } from './js/render
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
 import './js/masiania';
-import { options, paginationTrending, paginationSearch } from './js/pagination';
+import { paginationTrending, searchFilm } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import './js/modal-cards.js';
 import {
@@ -24,9 +24,14 @@ import {
   currentPageHome,
 } from './JS/localStorage';
 import Notiflix from 'notiflix';
+import Pagination from 'tui-pagination';
+
+import 'tui-pagination/dist/tui-pagination.css';
+
+
 
 //! Переменные
-const fetchFilms = new FetchFilms();
+export const fetchFilms = new FetchFilms();
 //?Модальное окно регистрации
 //Форма
 const registrationModalForm = refs.registrationModal.form;
@@ -108,55 +113,6 @@ function watchedListenerFoo ()  {
   fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results))})();
 
 
-refs.pagination.addEventListener('click', event => {
-  JsLoadingOverlay.show(loadingSpinnerConfig);
-  if (event.target.textContent === 'prev') {
-    fetchFilms.decrementPage();
-    return fetchFilms.fetchFilmsTrending().then(results => {
-      renderMarkup(results);
-      JsLoadingOverlay.hide();
-    });
-  }
-  if (event.target.textContent === 'first') {
-    fetchFilms.setPage(1);
-
-    return fetchFilms.fetchFilmsTrending().then(results => {
-      renderMarkup(results);
-      JsLoadingOverlay.hide();
-    });
-  }
-  if (event.target.textContent === 'next') {
-    fetchFilms.incrementPage();
-
-    return fetchFilms.fetchFilmsTrending().then(results => {
-      renderMarkup(results);
-      JsLoadingOverlay.hide();
-    });
-  }
-
-  if (event.target.textContent === 'last') {
-    fetchFilms.setPage(100);
-
-    return fetchFilms.fetchFilmsTrending().then(results => {
-      renderMarkup(results);
-      JsLoadingOverlay.hide();
-    });
-  }
-
-  if (event.target.textContent === '...') {
-    JsLoadingOverlay.hide();
-    return;
-  }
-
-  const page = event.target.textContent;
-  fetchFilms.setPage(page);
-
-  return fetchFilms.fetchFilmsTrending().then(results => {
-    renderMarkup(results);
-    JsLoadingOverlay.hide();
-  });
-});
-
 refs.pagination.addEventListener('click', paginationTrending);
 
 //*Модальное окно регистрации
@@ -220,38 +176,11 @@ registrationModalForm.addEventListener('submit', event => {
 let query = '';
 refs.form.addEventListener('submit', searchFilm);
 
-function searchFilm(event) {
-  event.preventDefault();
-  JsLoadingOverlay.show(loadingSpinnerConfig);
-  fetchFilms.setPage(1);
-  options.page = 1;
-  query = refs.input.value;
-  if (query) {
-    fetchFilms.fetchFilmsSearch(query).then(results => {
-      if (results.data.results.length === 0) {
-        return Notiflix.Notify.failure(
-          'Sorry, there aren`t films with that name. Try again'
-        );
-      }
 
-      options.totalItems = results.data.total_pages * 5;
-      if (options.totalItems > 500) {
-        options.totalItems = 500;
-      }
-      JsLoadingOverlay.hide();
-      return renderMarkup(results);
-    });
-  }
-  refs.pagination.removeEventListener('click', paginationTrending);
-  refs.pagination.removeEventListener('click', paginationCallback);
-  refs.pagination.addEventListener('click', paginationCallback);
-}
 
 // Modal footer
 
-function paginationCallback(event) {
-  paginationSearch(event, query);
-}
+
 
 const openFooterModal = document.querySelector('.footer__btn');
 const backdrop = document.querySelector('.developers__backdrop');

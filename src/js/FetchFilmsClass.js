@@ -6,7 +6,7 @@ export class FetchFilms {
   #BASE_URL = 'https://api.themoviedb.org/3/';
 
   constructor() {
-    (this.page = 1), (this.totalPage = 1000);
+    this.page = 1, this.totalPage = 1000;
   }
 
   // Запит на список найпопулярніших фільмів на сьогодні для створення колекції на головній сторінці:
