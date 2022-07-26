@@ -29,10 +29,8 @@ export const options = {
         '</a>'
     }
   };
- 
-export const pagination1 = new Pagination('pagination1', options);
 
-
+export const pagination1 = new Pagination('pagination1', options)
 
 export function paginationTrending (event){
   
