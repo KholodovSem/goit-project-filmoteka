@@ -3,6 +3,7 @@ import { FetchFilms } from './js/FetchFilmsClass';
 import { renderMarkup, renderMarkupCard } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
+import './js/masiania';
 import { options, paginationTrending, paginationSearch } from './js/pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import './js/modal-cards.js';
@@ -254,6 +255,7 @@ const watchedFilms = [];
 })();
 
 // renderMarkupCard()
+
 refs.movieContainer.addEventListener('click', async event => {
   const id = event.target.getAttribute('data-id');
 
@@ -263,6 +265,7 @@ refs.movieContainer.addEventListener('click', async event => {
 
   fetchFilms.fetchFilmsDetails(id).then(async results => {
     await renderMarkupCard(results, videoId);
+
 
     const modalCardRef = document.querySelector('.kennie-west');
     const nameFilm = document.querySelector('.modal__title-film');
