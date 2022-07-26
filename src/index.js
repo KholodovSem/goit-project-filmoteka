@@ -1,6 +1,8 @@
 //Импорты
+import 'js-loading-overlay';
+import { loadingSpinnerConfig } from './JS/spinner-config';
 import { FetchFilms } from './js/FetchFilmsClass';
-import { renderMarkup, renderMarkupCard } from './js/renderMarkup';
+import { renderMarkup, renderMarkupCard, renderMarkupLibrary } from './js/renderMarkup';
 import { scrollTo, scrollToTopButton } from './js/backToTopBtn';
 import { refs } from './js/refs';
 import './js/masiania';
@@ -46,6 +48,9 @@ let signInTabBoolean = refs.registrationModal.tabs.signInBoolean;
 //? Навигационные ссылки хедера
 const homeLink = refs.navigation.homeLink;
 const libraryLink = refs.navigation.libraryLink;
+const queueFilms = [];
+const watchedFilms = [];
+
 
 //*Проверка доступа
 (function () {
@@ -59,7 +64,7 @@ const libraryLink = refs.navigation.libraryLink;
 })();
 
 //Рендеринг для главной страницы и для библиотеки
-libraryLink.addEventListener('click', currentPageLibrary);
+libraryLink.addEventListener('click',currentPageLibrary);
 homeLink.addEventListener('click', currentPageHome);
 
 //*Запрос и рендеринг популярных фильмов
@@ -69,46 +74,89 @@ window.addEventListener('scroll', scrollToTopButton);
 refs.backToTopBtn.addEventListener('click', scrollTo);
 
 //*Пагинация
+  
+function watchedListenerFoo ()  {
+refs.movieContainer.innerHTML = '';
+ watchedFilms.forEach(film => 
+   fetchFilms.fetchFilmsSearch(film).then(results => renderMarkupLibrary(results) ) 
+   )
+}
+
+(function checkPage (){
 if (localStorageAPI.load('CurrentPage') === 'Library') {
+setTimeout(()=>{ watchedListenerFoo ()}, 0)
+
+  const btnWatchedHeader = document.querySelector("[data-btnWatchedLibrary]")
+  const btnQueueHeader = document.querySelector("[data-btnQueueLibrary]");
+  btnWatchedHeader.style.backgroundColor = "#ff6b08";
+  btnWatchedHeader.style.border = "none";
+  
+
+   btnWatchedHeader.addEventListener("click", watchedListenerFoo) 
+  
+  btnQueueHeader.addEventListener("click", (event) => {
+    btnWatchedHeader.removeAttribute("style")
+    refs.movieContainer.innerHTML = '';
+    queueFilms.forEach(film => 
+       fetchFilms.fetchFilmsSearch(film).then(results => {
+        return renderMarkupLibrary(results)} )) 
+  }) 
   return;
 }
-fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+fetchFilms.fetchFilmsTrending().then(results => {
+  JsLoadingOverlay.show(loadingSpinnerConfig);
+  renderMarkup(results);
+  JsLoadingOverlay.hide();
+});
+
 
 refs.pagination.addEventListener('click', event => {
+  JsLoadingOverlay.show(loadingSpinnerConfig);
   if (event.target.textContent === 'prev') {
     fetchFilms.decrementPage();
-    return fetchFilms
-      .fetchFilmsTrending()
-      .then(results => renderMarkup(results));
+    return fetchFilms.fetchFilmsTrending().then(results => {
+      renderMarkup(results);
+      JsLoadingOverlay.hide();
+    });
   }
   if (event.target.textContent === 'first') {
     fetchFilms.setPage(1);
-    return fetchFilms
-      .fetchFilmsTrending()
-      .then(results => renderMarkup(results));
+
+    return fetchFilms.fetchFilmsTrending().then(results => {
+      renderMarkup(results);
+      JsLoadingOverlay.hide();
+    });
   }
   if (event.target.textContent === 'next') {
     fetchFilms.incrementPage();
-    return fetchFilms
-      .fetchFilmsTrending()
-      .then(results => renderMarkup(results));
+
+    return fetchFilms.fetchFilmsTrending().then(results => {
+      renderMarkup(results);
+      JsLoadingOverlay.hide();
+    });
   }
 
   if (event.target.textContent === 'last') {
     fetchFilms.setPage(100);
-    return fetchFilms
-      .fetchFilmsTrending()
-      .then(results => renderMarkup(results));
+
+    return fetchFilms.fetchFilmsTrending().then(results => {
+      renderMarkup(results);
+      JsLoadingOverlay.hide();
+    });
   }
 
   if (event.target.textContent === '...') {
+    JsLoadingOverlay.hide();
     return;
   }
 
   const page = event.target.textContent;
   fetchFilms.setPage(page);
 
-  return fetchFilms.fetchFilmsTrending().then(results => renderMarkup(results));
+  return fetchFilms.fetchFilmsTrending().then(results => {
+    renderMarkup(results);
+    JsLoadingOverlay.hide();
+  });
 });
 
 refs.pagination.addEventListener('click', paginationTrending);
@@ -176,6 +224,7 @@ refs.form.addEventListener('submit', searchFilm);
 
 function searchFilm(event) {
   event.preventDefault();
+  JsLoadingOverlay.show(loadingSpinnerConfig);
   fetchFilms.setPage(1);
   options.page = 1;
   query = refs.input.value;
@@ -191,6 +240,7 @@ function searchFilm(event) {
       if (options.totalItems > 500) {
         options.totalItems = 500;
       }
+      JsLoadingOverlay.hide();
       return renderMarkup(results);
     });
   }
@@ -241,10 +291,6 @@ function onCloseBackdrop(e) {
 }
 
 //
-
-const queueFilms = [];
-const watchedFilms = [];
-
 (function checkLocalStorage() {
   if (localStorageAPI.load('WatchedFilms')) {
     watchedFilms.push(...localStorageAPI.load('WatchedFilms'));
@@ -265,7 +311,6 @@ refs.movieContainer.addEventListener('click', async event => {
 
   fetchFilms.fetchFilmsDetails(id).then(async results => {
     await renderMarkupCard(results, videoId);
-
 
     const modalCardRef = document.querySelector('.kennie-west');
     const nameFilm = document.querySelector('.modal__title-film');
@@ -323,7 +368,6 @@ refs.movieContainer.addEventListener('click', async event => {
       }
 
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
       if (
         event.target.getAttribute('id') === 'js-watched-add' &&
         event.target.textContent === 'ADD TO WATCHED'

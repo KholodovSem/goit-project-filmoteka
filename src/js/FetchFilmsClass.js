@@ -11,6 +11,7 @@ export class FetchFilms {
 
   // Запит на список найпопулярніших фільмів на сьогодні для створення колекції на головній сторінці:
   async fetchFilmsTrending() {
+    // JsLoadingOverlay.show(loadingSpinnerConfig);
     try {
       const response = await axios.get(`${this.#BASE_URL}trending/all/day?`, {
         params: {
@@ -18,7 +19,7 @@ export class FetchFilms {
           page: this.page,
         },
       });
-
+      // JsLoadingOverlay.hide();
       return response;
     } catch (error) {
       console.error(error);
