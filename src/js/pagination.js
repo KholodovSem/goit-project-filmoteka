@@ -5,7 +5,7 @@ import 'tui-pagination/dist/tui-pagination.css';
 import { FetchFilms } from './FetchFilmsClass';
 import { renderMarkup } from './renderMarkup';
 import { refs } from './refs';
-import { fetchFilms } from '../index';
+import { fetchFilms, query } from '../index';
 
 
 export const options = {
@@ -135,14 +135,14 @@ export function paginationSearch(event, query) {
 }
 
 
-export function searchFilm(event) {
+export function searchFilm(event,) {
   event.preventDefault();
   fetchFilms.page = 1;
 
 
   pagination1.movePageTo(1)
 
-  const query = refs.input.value;
+   query = refs.input.value;
   if (query) {
     fetchFilms.fetchFilmsSearch(query).then(results => {
       if (results.data.results.length === 0) {

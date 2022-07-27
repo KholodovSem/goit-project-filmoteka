@@ -179,7 +179,7 @@ registrationModalForm.addEventListener('submit', event => {
 });
 
 // What is this?
-let query = '';
+export let query = '';
 refs.form.addEventListener('submit', searchFilm);
 
 
