@@ -83,8 +83,8 @@ export function paginationTrending(event) {
 }
 
 export function paginationSearch(event, query) {
- 
-  
+
+
 
 
   if (event.target.textContent === 'prev') {
@@ -152,7 +152,7 @@ export function searchFilm(event,) {
       }
 
       options.totalItems = Number(results.data.total_pages) * 5 ;
-     
+
     console.log(options.totalItems);
       if (options.totalItems > 500) {
         options.totalItems = 500;
