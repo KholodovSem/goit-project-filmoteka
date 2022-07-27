@@ -142,7 +142,7 @@ export function searchFilm(event) {
 
   pagination1.movePageTo(1)
 
-  query = refs.input.value;
+  const query = refs.input.value;
   if (query) {
     fetchFilms.fetchFilmsSearch(query).then(results => {
       if (results.data.results.length === 0) {
