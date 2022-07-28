@@ -3,8 +3,8 @@ import photo1 from '../images/photo_1.jpg';
 import photo2 from '../images/photo_2.jpg';
 import photo3 from '../images/photo_3.jpg';
 import photo4 from '../images/photo_4.jpg';
-import photo5 from '../images/photo_5.jpg';
 import close from '../images/icons.svg';
+
 
 const refs = {
     openModalBtn: document.querySelector('[data-modal-open]'),
@@ -19,23 +19,22 @@ const modal = basicLightbox.create(
         <use href="${close}#icon-close"></use>
       </svg>
     </button>
-    <h2 class="modal__team">TEAM "the big code theory"</h2>
+    <h2 class="modal__team">TEAM "MIBIHA"</h2>
             <div class="modal__photos">
             <div class="modal__thumb">
             
             <div class="modal__images">
-            <img class="modal__photo" src="${photo3}" alt="Kate photo"/>
+            <img class="modal__photo" src="${photo3}" alt="Nikita photo"/>
                 <div class="modal__about">
-                <h3 class="modal__name">Катерина Загоруй</h3>
-                <h4>Team Lead</h4>
+                <h3 class="modal__name">Mykyta Ahafonov</h3>
                 <p>Frontend Developer</p>
                 </div>
             </div>
 
             <div class="modal__images">
-            <img class="modal__photo" src="${photo2}" alt="Serg photo"/>
+            <img class="modal__photo" src="${photo2}" alt="Stepan photo"/>
                 <div class="modal__about">
-                <h3 class="modal__name">Сергій Соловйов</h3>
+                <h3 class="modal__name">Stepan Kryukov</h3>
                 <h4>Scrum Master</h4>
                 <p>Frontend Developer</p>
                 </div>
@@ -44,28 +43,20 @@ const modal = basicLightbox.create(
             
             <div class="modal__thumb">
             <div class="modal__images">
-                <img class="modal__photo" src="${photo1}" alt="Oleg photo"/>
+                <img class="modal__photo" src="${photo1}" alt="Sem photo"/>
                 <div class="modal__about">
-                <h3 class="modal__name">Олег Чучин</h3>
+                <h3 class="modal__name">Sem Kholodov</h3>
+                <h4>Team Lead</h4>
                 <p>Frontend Developer</p>
                 </div>
             </div>
             
             <div class="modal__images">
-            <img class="modal__photo" src="${photo4}" alt="Andrey photo">
+            <img class="modal__photo" src="${photo4}" alt="Artur photo">
                 <div class="modal__about">
-                <h3 class="modal__name">Андрій Макаров</h3>
+                <h3 class="modal__name">Artur Myasnikov</h3>
                 <p>Frontend Developer</p>
                 </div>
-            </div>
-
-            <div class="modal__images">
-            <img class="modal__photo" src="${photo5}" alt="Alex photo">
-                <div class="modal__about">
-                <h3 class="modal__name">Олександр Алемаев</h3>
-                <p>Frontend Developer</p>
-                </div>
-            </div>
             </div>
        
            </div>
