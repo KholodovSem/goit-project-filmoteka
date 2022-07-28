@@ -1,20 +1,20 @@
-@import './common';
-@import './global-styles/mixins';
-@import './gallery-card';
-@import './global-styles/_body';
-@import './global-styles/_container';
-@import './global-styles/_visually-hidden';
-@import './global-styles/_variables';
-@import './header/_header';
-@import './header/_navigation';
-@import './header/_input';
-@import './header/__logo';
-@import './header/__header-btn';
-@import './footer';
-@import './hero';
-@import './modals/_modal-registartion-form';
-@import './footer-modal';
-@import './base';
-@import './paginatios';
-@import './modals/card-modal';
-@import './masiania';
+@import '~node_modules/modern-normalize/modern-normalize.css';
+@import '~node_modules/tui-pagination/dist/tui-pagination.min.css';
+
+@import './utils/variables';
+@import './utils/mixins';
+@import './base/reset';
+@import './base/common';
+@import './utils/hidden';
+@import './components/container';
+@import './components/buttons';
+@import './components/spinner';
+@import './components/registrationForm';
+
+@import './layout/header';
+@import './layout/main';
+@import './layout/footer';
+@import './layout/modal';
+@import './components/arrowUp';
+
+@import './node_modules/basiclightbox/src/styles/main.scss';

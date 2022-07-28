@@ -1,4 +1,5 @@
 import Pagination from 'tui-pagination';
+<<<<<<< Updated upstream
 // import 'js-loading-overlay';
 // import { loadingSpinnerConfig } from './spinner-config';
 import 'tui-pagination/dist/tui-pagination.css';
@@ -171,3 +172,17 @@ export function searchFilm(event,) {
 export function paginationCallback(event) {
   paginationSearch(event, query);
 }
+=======
+
+const container = document.getElementById('tui-pagination-container');
+
+export default function getPagination(total, perPage) {
+    const options = {
+        totalItems: total,
+        itemsPerPage: perPage,
+        visiblePages: 5,
+        centerAlign: true,
+    };
+    return new Pagination(container, options);
+}
+>>>>>>> Stashed changes
